@@ -1,0 +1,290 @@
+# ---------------------------------------------------------------------------
+# Portfolio content. Everything the site renders comes from this file.
+# Edit here, re-run `npm run build`. No component changes needed.
+#
+# Sourced from resume.ninadnaik.me. Keep this in step with the resume PDF.
+# ---------------------------------------------------------------------------
+
+profile:
+  name: Ninad Naik
+  # Shown under the name, in mono caps.
+  role: Backend Developer
+  # Big display line at the top. Keep it to a few words.
+  tagline: Low-latency backends and agentic AI systems.
+  location: Mumbai, India
+  email: ninadnaik07@gmail.com
+  # Drop your photo at public/profile.jpg (square crop works best).
+  photo: /profile.jpg
+  # Fallback initials rendered if the photo is missing.
+  initials: NN
+  # Optional. Renders a "Resume" button in the header when set.
+  resume: https://resume.ninadnaik.me
+
+about:
+  - >-
+    Backend developer at Commotion (acquired by Tata Communications), where I
+    build low-latency services for real-time voice and text AI agents — MCP
+    frameworks, A2A orchestration, and integrations that unify Salesforce,
+    ServiceNow and SAP into one workflow.
+  - >-
+    Outside work I contribute to the Linux kernel. I spent Spring 2026 in the
+    Linux Foundation's LFX kernel mentorship, graduating with 11 patches in
+    mainline. I also published a research paper on measuring speech confidence
+    with deep learning, and I write about what I learn.
+
+# Rendered as icon buttons in the header and again in the footer.
+# `icon` must be one of: github, linkedin, twitter, instagram, mail, globe, rss
+socials:
+  - label: GitHub
+    icon: github
+    url: https://github.com/ninadnaik10
+  - label: LinkedIn
+    icon: linkedin
+    url: https://linkedin.com/in/ninadn
+  - label: Tech Blog
+    icon: rss
+    url: https://tech.ninadnaik.me
+  - label: Twitter
+    icon: twitter
+    url: https://twitter.com/ninadnaik07
+  - label: Instagram
+    icon: instagram
+    url: https://instagram.com/ninadnaik07
+  - label: Email
+    icon: mail
+    url: mailto:ninadnaik07@gmail.com
+
+experience:
+  - company: Commotion
+    note: acquired by Tata Communications
+    url: https://gocommotion.com/
+    role: Backend Developer
+    type: Full-time
+    start: January 2025
+    end: Present
+    location: Mumbai, India
+    highlights:
+      - >-
+        Engineered low-latency backend architectures using NestJS and FastAPI,
+        applying targeted database indexes and query optimisation to handle
+        high-concurrency enterprise workloads.
+      - >-
+        Developed MCP frameworks and A2A orchestration patterns for real-time
+        contextual voice and text AI agents.
+      - >-
+        Built robust AI integrations with platforms including Salesforce,
+        ServiceNow and SAP, unifying multi-system workflows.
+      - >-
+        Enforced security using OAuth and JWT auth schemes, ensuring platform
+        integrity via SAST and VAPT security analysis.
+      - >-
+        Developed low-latency Voice AI solutions in collaboration with multiple
+        Tata companies and MNCs to streamline automated operations.
+      - Promoted from Backend Developer Intern (January 2025 – June 2025).
+    stack: [NestJS, FastAPI, MCP, A2A, PostgreSQL, OAuth2.0, JWT]
+
+  - company: Arxena Inc.
+    url: https://arxena.com/
+    role: Full Stack Developer Intern
+    type: Internship
+    start: June 2024
+    end: July 2024
+    location: Mumbai, India
+    highlights:
+      - >-
+        Improved efficiency of the automated recruitment process by developing
+        a GPT-powered WhatsApp chatbot in NestJS, WebSocket API, GraphQL and
+        React.js, streamlining communication with candidates.
+      - >-
+        Optimised the build process for apps running on AWS EC2 using AMI,
+        reducing costs by up to 75%.
+    stack: [NestJS, React.js, GraphQL, WebSocket, AWS EC2]
+
+  - company: Kraymera Study Abroad
+    url: https://kraymera.com/
+    role: Information Technology Intern
+    type: Internship
+    start: June 2023
+    end: September 2023
+    location: Mumbai, India
+    highlights:
+      - >-
+        Implemented CRM systems and processes using Zoho and built WhatsApp
+        Business API automation in Deluge, boosting lead nurturing and
+        conversion rate.
+      - >-
+        Installed and configured CentOS on a server and set up networking
+        devices and a GSM gateway for telecommunications.
+    stack: [Zoho, Deluge, CentOS, Networking]
+
+# Mentorships and programmes render as a timeline; contributions as cards.
+open_source:
+  programs:
+    - company: The Linux Foundation — LFX
+      role: Linux Kernel Mentorship Program Mentee
+      type: Spring 2026
+      url: https://lfx.linuxfoundation.org/tools/mentorship/
+      start: March 2026
+      end: August 2026
+      highlights:
+        - >-
+          Graduated with 11 patches contributed to the Linux kernel mainline,
+          and published a blog sharing the experience.
+        - >-
+          Converted text-based Devicetree bindings to JSON Schema, and fixed
+          documentation links, typos and driver error handling.
+        - >-
+          Worked within the kernel development workflow — patch submission and
+          review cycles — using cscope, Coccinelle and smatch for static
+          analysis.
+        - Selected for the programme from 693 applicants.
+      stack: [C, Linux Kernel, Devicetree, JSON Schema, Coccinelle, smatch]
+
+  contributions:
+    - name: Linux Kernel
+      description: >-
+        11 patches merged into mainline: Devicetree bindings converted to JSON
+        Schema, plus documentation and driver error-handling fixes.
+      stack: [C, Devicetree]
+      url: https://git.kernel.org/
+      featured: true
+
+    - name: n8n.io
+      description: >-
+        Contributions to the workflow automation platform.
+      stack: [TypeScript]
+      url: https://n8n.io
+
+    - name: CircuitVerse
+      description: >-
+        Contributions to the open-source digital logic circuit simulator.
+      stack: [JavaScript, Ruby]
+      url: https://circuitverse.org
+
+    - name: Ninad's Blog
+      description: >-
+        A responsive static blogging site, migrated from vanilla HTML/CSS/JS to
+        Next.js and Markdown. Fully statically generated.
+      stack: [Next.js, React, Markdown]
+      url: https://blog.ninadnaik.me/
+      repo: https://github.com/ninadnaik10/blog
+
+    - name: dotfiles
+      description: >-
+        My complete development environment — shell, editor and tooling config,
+        versioned and reproducible.
+      stack: [Shell]
+      repo: https://github.com/ninadnaik10/dotfiles
+
+projects:
+  - name: Redspot
+    date: June 2026
+    description: >-
+      A real-time website click analytics platform. A FastAPI ingestion server,
+      Kafka message queue and ClickHouse storage pipeline capture interactions
+      via a lightweight JavaScript tracking script; a React dashboard renders
+      the target site in an iframe and overlays a colour-coded canvas heatmap of
+      click density from live ClickHouse queries.
+    stack: [FastAPI, React.js, ClickHouse, Kafka, PostgreSQL, Docker]
+    repo: https://github.com/ninadnaik10/redspot
+    featured: true
+
+  - name: SpeakSure
+    date: October 2025
+    description: >-
+      An automated AI behavioural interview system that quantifies confidence in
+      a candidate's speech and surfaces insights to the hiring manager. Trained
+      an MLP and a Fuzzy Hypersphere Neural Network on a custom dataset of 751
+      thirty-second samples using Wav2Vec2 features, reaching 96% relaxed
+      testing accuracy. Presented as a research paper at ICCIS 2025.
+    stack: [Python, Flask, TensorFlow, React.js, MongoDB]
+    repo: https://github.com/ninadnaik10/speaksure
+    featured: true
+
+  - name: Shortomega
+    date: November 2024
+    description: >-
+      A full-stack URL shortener built with a focus on system design, with a
+      dashboard, analytics aggregation and rate limiting, Dockerised. Redis runs
+      as the primary database — I published a technical blog on the approach.
+    stack: [React.js, Next.js, Node.js, NestJS, TypeScript, Redis, Docker]
+    url: https://shortomega.ninadnaik.me/
+
+  - name: CodeIt
+    description: >-
+      A specialised online coding platform for instructors to create groups,
+      post coding challenges, and review learners' solution submissions.
+    stack: [React, Firebase, AWS]
+    url: https://codeit-web.onrender.com/
+    repo: https://github.com/ninadnaik10/codeit
+
+  - name: PassVault
+    description: >-
+      A desktop password generator and vault storing credentials locally,
+      secured with SHA-256 hashing and AES encryption.
+    stack: [Java, Swing, SQLite]
+    repo: https://github.com/ninadnaik10/PassVault
+
+  - name: News Forecast
+    description: >-
+      An Android app for weather and news updates — temperature, conditions,
+      wind speed, humidity, visibility and news previews.
+    stack: [Flutter, REST APIs]
+    repo: https://github.com/ninadnaik10/news-forecast
+
+# Icons come from svgl (svgl.app) via @ridemountainpig/svgl-react, mapped by
+# display name in components/skill-icon.tsx. A name with no entry there renders
+# a monogram tile, so adding a skill here never breaks the grid.
+skills:
+  - group: Languages
+    items: [C, C++, Java, Python, JavaScript, TypeScript, Go]
+  - group: Frameworks
+    items: [Node.js, NestJS, FastAPI, MCP, Kafka]
+  - group: Web
+    items: [HTML, CSS, Tailwind CSS, React.js]
+  - group: Databases
+    items: [MySQL, PostgreSQL, MongoDB, Redis]
+  - group: API & Security
+    items: [REST, GraphQL, gRPC, OAuth2.0, JWT]
+  - group: Platforms & Tools
+    items: [Linux, Docker, Kubernetes, AWS]
+
+education:
+  - degree: B.E. Information Technology
+    institution: Thadomal Shahani Engineering College, University of Mumbai
+    location: Mumbai, India
+    start: "2021"
+    end: "2025"
+    detail: CGPA 8.54 / 10
+
+# Positions held outside of employment.
+roles:
+  - title: Responsible Computing Fellow
+    org: SimPPL
+    url: https://simppl.org
+    start: March 2024
+    end: June 2024
+  - title: App Team Member
+    org: Developers' Club — TSEC
+    start: March 2023
+    end: March 2024
+  - title: Core Team Member
+    org: Google Developer Student Clubs — TSEC
+    start: August 2022
+    end: April 2024
+
+recognition:
+  - title: Evaluating Human Speech Confidence with Deep Learning Techniques
+    detail: >-
+      Research paper, Ninad Naik et al. — ICCIS 2025, BITS Pilani, Goa.
+      Accepted for publication in the SCOPUS-indexed Springer LNNS series.
+  - title: First Runner Up
+    detail: CSS Battle 2022 and Javagenix 2022.
+  - title: Second Runner Up
+    detail: PyExpo 2023.
+  - title: Top 10
+    detail: ACE Hacks 2024.
+
+# Optional. Remove the block entirely to hide the footer note.
+footer:
+  note: Built with Next.js, HeroUI and Tailwind CSS. Content lives in a single YAML file.
