@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated icons — rebuilt by scripts/build-icons.mjs, which runs
+# automatically via the predev and prebuild npm lifecycle scripts
+/public/icons/

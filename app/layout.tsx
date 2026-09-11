@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { JetBrains_Mono, Open_Sans } from "next/font/google";
 
 import { Providers } from "@/app/providers";
 import { getContent } from "@/lib/content";
 
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const openSans = Open_Sans({
+  variable: "--font-open-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+/** Section numbers, dates and small caps keep their monospace texture. */
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
@@ -25,7 +26,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: `${profile.name} — ${profile.role}`,
   description,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    // Point text-oriented consumers at the plain-text summary rather than
+    // making them parse a page that is mostly markup.
+    types: { "text/plain": "/llms.txt" },
+  },
   openGraph: {
     title: `${profile.name} — ${profile.role}`,
     description,
@@ -61,7 +67,7 @@ const personSchema = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${openSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
       lang="en"
       suppressHydrationWarning
     >

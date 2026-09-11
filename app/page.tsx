@@ -2,7 +2,7 @@ import { Education } from "@/components/education";
 import { Experience } from "@/components/experience";
 import { Hero } from "@/components/hero";
 import { OpenSource } from "@/components/open-source";
-import { Recognition } from "@/components/recognition";
+import { Research } from "@/components/research";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Skills } from "@/components/skills";
@@ -18,8 +18,7 @@ export default function Page() {
     open_source,
     profile,
     projects,
-    recognition,
-    roles,
+    research,
     skills,
     socials,
   } = getContent();
@@ -36,16 +35,16 @@ export default function Page() {
 
         <div className="space-y-24">
           <Experience index="01" jobs={experience} />
-          <OpenSource content={open_source} index="02" />
+          <Education degrees={education} index="02" />
+          <OpenSource content={open_source} index="03" />
           <WorkGrid
             id="projects"
-            index="03"
+            index="04"
             items={projects}
             title="Projects"
           />
-          <Skills groups={skills} index="04" />
-          <Education degrees={education} index="05" roles={roles} />
-          <Recognition awards={recognition} index="06" />
+          <Research index="05" papers={research} />
+          <Skills groups={skills} index="06" />
         </div>
 
         <SiteFooter footer={footer} profile={profile} socials={socials} />

@@ -21,7 +21,7 @@ export interface Social {
 export interface Profile {
   name: string;
   role: string;
-  tagline: string;
+  tagline?: string;
   location?: string;
   email?: string;
   photo?: string;
@@ -31,6 +31,10 @@ export interface Profile {
 
 export interface Job {
   company: string;
+  /** Path under public/, e.g. /logos/commotion.png. */
+  logo?: string;
+  /** Initials shown while no logo file exists. Set by the loader. */
+  logoFallback?: string;
   note?: string;
   url?: string;
   role: string;
@@ -40,15 +44,23 @@ export interface Job {
   location?: string;
   highlights: string[];
   stack?: string[];
+  /** Optional write-up about this work. */
+  article?: string;
 }
 
 export interface Work {
   name: string;
+  /** Path under public/, e.g. /logos/redspot.png. */
+  logo?: string;
+  /** Initials shown while no logo file exists. Set by the loader. */
+  logoFallback?: string;
   date?: string;
   description: string;
   stack?: string[];
   url?: string;
   repo?: string;
+  /** Optional write-up about this work. */
+  article?: string;
   featured?: boolean;
 }
 
@@ -66,17 +78,18 @@ export interface Degree {
   detail?: string;
 }
 
-export interface Role {
+export interface Paper {
   title: string;
-  org: string;
+  authors?: string;
+  venue?: string;
+  date?: string;
+  status?: string;
+  summary?: string;
   url?: string;
-  start: string;
-  end: string;
-}
-
-export interface Award {
-  title: string;
-  detail: string;
+  /** Text for the link, e.g. "Certificate", "DOI", "PDF". */
+  url_label?: string;
+  /** Name of a related entry in `projects`, shown as a cross-reference. */
+  project?: string;
 }
 
 export interface OpenSource {
@@ -93,9 +106,37 @@ export interface Content {
   open_source: OpenSource;
   skills: SkillGroup[];
   education: Degree[];
-  roles: Role[];
-  recognition: Award[];
+  research: Paper[];
   footer?: { note?: string };
+}
+
+/** Up to two initials, e.g. "Arxena Inc." -> "AI", "Commotion" -> "C". */
+function initialsOf(label: string): string {
+  return (
+    label
+      .split(/[^A-Za-z0-9]+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((word) => word[0].toUpperCase())
+      .join("") || "?"
+  );
+}
+
+/**
+ * A path that is not actually in public/ would prerender a broken <img>, so
+ * drop it and let the initials fallback render server-side instead. The slot
+ * itself is kept — declaring `logo:` in YAML is what asks for the avatar.
+ */
+function attachLogo<T extends { logo?: string }>(item: T, label: string): T {
+  if (!item.logo) return item;
+
+  const exists = existsSync(join(process.cwd(), "public", item.logo));
+  if (!exists) {
+    console.warn(
+      `[content] logo "${item.logo}" not found in public/ — showing initials for "${label}".`,
+    );
+  }
+  return { ...item, logo: exists ? item.logo : undefined, logoFallback: initialsOf(label) };
 }
 
 /**
@@ -143,16 +184,23 @@ function loadContent(): Content {
     profile,
     about: content.about ?? [],
     socials: content.socials ?? [],
-    experience: content.experience ?? [],
-    projects: content.projects ?? [],
+    experience: (content.experience ?? []).map((job) =>
+      attachLogo(job, job.company),
+    ),
+    projects: (content.projects ?? []).map((work) =>
+      attachLogo(work, work.name),
+    ),
     open_source: {
-      programs: content.open_source?.programs ?? [],
-      contributions: content.open_source?.contributions ?? [],
+      programs: (content.open_source?.programs ?? []).map((job) =>
+        attachLogo(job, job.company),
+      ),
+      contributions: (content.open_source?.contributions ?? []).map((work) =>
+        attachLogo(work, work.name),
+      ),
     },
       skills: content.skills ?? [],
     education: content.education ?? [],
-    roles: content.roles ?? [],
-    recognition: content.recognition ?? [],
+    research: content.research ?? [],
     footer: content.footer,
   };
 }

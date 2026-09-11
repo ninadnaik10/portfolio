@@ -2,8 +2,12 @@
 @import "@heroui/styles";
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Open Sans carries the reading; JetBrains Mono keeps the structural
+     furniture — section numbers, dates, the header name — monospaced, which
+     is where the technical texture comes from. Both are variable fonts, so
+     the four mono weights in use cost one file. */
+  --font-sans: var(--font-open-sans);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 @layer base {
@@ -29,6 +33,13 @@
     @apply font-mono text-xs font-medium uppercase tracking-[0.2em] text-muted;
   }
 
+  /* HeroUI's default card padding is 16px, which reads tight once cards carry
+     a logo, a title row, bullets and a chip footer. 24px gives the content
+     room without changing the card's radius or surface. */
+  .card {
+    padding: calc(var(--spacing) * 6);
+  }
+
   /* Skill logos sit as a calm monochrome grid and bloom into their brand
      colours on hover. Written as plain CSS rather than
      `group-hover:grayscale-0` because Tailwind has already been observed
@@ -48,7 +59,7 @@
 
   /* The big section headings. */
   .section-title {
-    @apply text-4xl font-black tracking-tight sm:text-5xl;
+    @apply text-4xl font-extrabold tracking-tight sm:text-5xl;
   }
 }
 
@@ -67,47 +78,37 @@
    Theme change animation
    --------------------------------------------------------------------------- */
 
-/* The incoming theme is revealed as a circle expanding from the button that
-   was clicked. Driven by a real CSS animation rather than a JS
-   Element.animate() call on transition.ready: with `animation: none` on both
-   pseudo-elements there are no animations to wait for, so the browser can
-   finish and tear down the transition before a JS-attached animation ever
-   starts. Geometry comes in as custom properties, which inherit into the
-   ::view-transition pseudo tree from the root element.
-
-   The fallbacks matter: if theme-toggle.tsx cannot measure the button, this
-   still plays as a centred reveal instead of silently doing nothing. */
 /* Chrome 153 computes `view-transition-name: none` on the document element —
    the UA no longer auto-assigns the `root` name that ::view-transition-*(root)
    targets, so without this the pseudo-elements are never created and the
-   reveal below silently matches nothing. Verified in-browser: with this
-   missing, startViewTransition() resolves `ready` with zero pseudo animations. */
+   cross-fade below silently matches nothing. Verified in-browser: with this
+   missing, startViewTransition() resolves `ready` with zero pseudo
+   animations. */
 :root {
   view-transition-name: root;
 }
 
-@keyframes theme-reveal {
-  from {
-    clip-path: circle(
-      0px at var(--theme-reveal-x, 50%) var(--theme-reveal-y, 50%)
-    );
-  }
+/* A plain cross-fade between the outgoing and incoming themes.
 
-  to {
-    clip-path: circle(
-      var(--theme-reveal-r, 150vmax) at var(--theme-reveal-x, 50%)
-        var(--theme-reveal-y, 50%)
-    );
+   The keyframes are written out rather than relying on the UA default, which
+   blends the two snapshots with `mix-blend-mode: plus-lighter` — that additive
+   blend brightens the midpoint, so a light-to-dark switch flashes pale before
+   settling. Stacking the new snapshot over the old and fading only the new in
+   keeps the midpoint honest. */
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
   }
 }
 
 ::view-transition-old(root) {
   animation: none;
+  mix-blend-mode: normal;
   z-index: 1;
 }
 
 ::view-transition-new(root) {
-  animation: theme-reveal 520ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: theme-fade-in 450ms ease both;
   mix-blend-mode: normal;
   z-index: 2;
 }

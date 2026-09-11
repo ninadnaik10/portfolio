@@ -1,5 +1,7 @@
 import { Card, Chip, Link } from "@heroui/react";
 
+import { LogoAvatar } from "@/components/logo-avatar";
+
 import { ArrowUpRightIcon, socialIcons } from "@/components/icons";
 import { Section } from "@/components/section";
 import type { Work } from "@/lib/content";
@@ -12,16 +14,25 @@ function WorkCard({ work }: { work: Work }) {
 
   return (
     <Card
-      className={`group border-border hover:border-foreground/30 relative flex h-full flex-col border transition-colors ${
+      className={`group hover:bg-surface-secondary relative flex h-full flex-col transition-colors ${
         work.featured ? "sm:col-span-2" : ""
       }`}
-      variant="transparent"
     >
       <Card.Header>
-        <Card.Title className="flex items-start justify-between gap-3 text-xl font-bold tracking-tight">
+        <div className="flex items-start gap-3">
+          <LogoAvatar
+            alt={work.name}
+            fallback={work.logoFallback}
+            size="sm"
+            src={work.logo}
+          />
+        <Card.Title className="flex flex-1 items-start justify-between gap-3 text-xl font-bold tracking-tight">
           {primary ? (
+            /* `static` is load-bearing: HeroUI's .link sets position:relative,
+               which would scope the after:inset-0 overlay to the title text
+               instead of the whole card, leaving the card unclickable. */
             <Link
-              className="text-foreground no-underline after:absolute after:inset-0 hover:underline"
+              className="text-foreground static no-underline after:absolute after:inset-0 hover:underline"
               href={primary}
               rel="noopener noreferrer"
               target="_blank"
@@ -40,6 +51,7 @@ function WorkCard({ work }: { work: Work }) {
             <ArrowUpRightIcon className="text-muted group-hover:text-accent mt-1 size-4 shrink-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           ) : null}
         </Card.Title>
+        </div>
         <Card.Description className="text-muted mt-2 leading-relaxed">
           {work.description}
         </Card.Description>
@@ -59,17 +71,33 @@ function WorkCard({ work }: { work: Work }) {
         ) : null}
 
         {/* Sits above the card-wide overlay link so it stays clickable. */}
-        {work.repo && work.url ? (
-          <Link
-            aria-label={`${work.name} source on GitHub`}
-            className="text-muted hover:text-foreground relative z-10 inline-flex items-center gap-1.5 text-xs font-medium no-underline"
-            href={work.repo}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <GitHubIcon className="size-3.5" />
-            Source
-          </Link>
+        {(work.repo && work.url) || work.article ? (
+          <div className="relative z-10 flex flex-wrap items-center gap-x-5 gap-y-2">
+            {work.repo && work.url ? (
+              <Link
+                aria-label={`${work.name} source on GitHub`}
+                className="text-muted hover:text-foreground inline-flex items-center gap-1.5 text-xs font-medium no-underline"
+                href={work.repo}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <GitHubIcon className="size-3.5" />
+                Source
+              </Link>
+            ) : null}
+            {work.article ? (
+              <Link
+                aria-label={`${work.name} write-up`}
+                className="text-muted hover:text-foreground inline-flex items-center gap-1 text-xs font-medium no-underline"
+                href={work.article}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Article
+                <ArrowUpRightIcon className="size-3" />
+              </Link>
+            ) : null}
+          </div>
         ) : null}
       </Card.Footer>
     </Card>

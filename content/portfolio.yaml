@@ -3,15 +3,19 @@
 # Edit here, re-run `npm run build`. No component changes needed.
 #
 # Sourced from resume.ninadnaik.me. Keep this in step with the resume PDF.
+#
+# `logo:` on any experience, programme, project or contribution points at a
+# file under public/logos/. Until that file exists the card shows the entry's
+# initials instead — see public/logos/README.md.
 # ---------------------------------------------------------------------------
 
 profile:
   name: Ninad Naik
   # Shown under the name, in mono caps.
-  role: Backend Developer
+  role: Software Developer
   # Big display line at the top. Keep it to a few words.
-  tagline: Low-latency backends and agentic AI systems.
-  location: Mumbai, India
+  # tagline: Low-latency backends and agentic AI systems.
+  # location: Mumbai, India
   email: ninadnaik07@gmail.com
   # Drop your photo at public/profile.jpg (square crop works best).
   photo: /profile.jpg
@@ -22,15 +26,9 @@ profile:
 
 about:
   - >-
-    Backend developer at Commotion (acquired by Tata Communications), where I
-    build low-latency services for real-time voice and text AI agents — MCP
-    frameworks, A2A orchestration, and integrations that unify Salesforce,
-    ServiceNow and SAP into one workflow.
-  - >-
-    Outside work I contribute to the Linux kernel. I spent Spring 2026 in the
-    Linux Foundation's LFX kernel mentorship, graduating with 11 patches in
-    mainline. I also published a research paper on measuring speech confidence
-    with deep learning, and I write about what I learn.
+    Hello! I am a Software Developer interested in Backend systems and Agentic AI. 
+    I enjoy exploring and tinkering new things and meet
+    new people. I love to learn about Astronomy.
 
 # Rendered as icon buttons in the header and again in the footer.
 # `icon` must be one of: github, linkedin, twitter, instagram, mail, globe, rss
@@ -56,9 +54,10 @@ socials:
 
 experience:
   - company: Commotion
+    logo: /logos/commotion.jpeg
     note: acquired by Tata Communications
     url: https://gocommotion.com/
-    role: Backend Developer
+    role: Associate Backend Developer - Agentic AI Integration
     type: Full-time
     start: January 2025
     end: Present
@@ -84,6 +83,7 @@ experience:
     stack: [NestJS, FastAPI, MCP, A2A, PostgreSQL, OAuth2.0, JWT]
 
   - company: Arxena Inc.
+    logo: /logos/arxena.jpeg
     url: https://arxena.com/
     role: Full Stack Developer Intern
     type: Internship
@@ -99,8 +99,10 @@ experience:
         Optimised the build process for apps running on AWS EC2 using AMI,
         reducing costs by up to 75%.
     stack: [NestJS, React.js, GraphQL, WebSocket, AWS EC2]
+    # article: https://gist.github.com/ninadnaik10/7e9faf7f9d68035a5fe5a89a3a599c0d
 
   - company: Kraymera Study Abroad
+    logo: /logos/kraymera.jpeg
     url: https://kraymera.com/
     role: Information Technology Intern
     type: Internship
@@ -121,9 +123,11 @@ experience:
 open_source:
   programs:
     - company: The Linux Foundation — LFX
+      logo: /logos/lfx.png
       role: Linux Kernel Mentorship Program Mentee
       type: Spring 2026
-      url: https://lfx.linuxfoundation.org/tools/mentorship/
+      url: https://mentorship.lfx.linuxfoundation.org/project/53378ec5-48d7-4c49-a01f-8cbd3948db3d
+      article: https://tech.ninadnaik.me/lfx-lkmp
       start: March 2026
       end: August 2026
       highlights:
@@ -134,50 +138,39 @@ open_source:
           Converted text-based Devicetree bindings to JSON Schema, and fixed
           documentation links, typos and driver error handling.
         - >-
-          Worked within the kernel development workflow — patch submission and
-          review cycles — using cscope, Coccinelle and smatch for static
+          Worked within the kernel development workflow, patch submission and
+          review cycles, using cscope, Coccinelle and smatch for static
           analysis.
         - Selected for the programme from 693 applicants.
       stack: [C, Linux Kernel, Devicetree, JSON Schema, Coccinelle, smatch]
 
   contributions:
     - name: Linux Kernel
+      logo: /logos/linux-kernel.jpeg
       description: >-
         11 patches merged into mainline: Devicetree bindings converted to JSON
         Schema, plus documentation and driver error-handling fixes.
       stack: [C, Devicetree]
-      url: https://git.kernel.org/
+      url: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=grep&q=ninadnaik07%40gmail.com
       featured: true
 
     - name: n8n.io
+      logo: /logos/n8n.png
       description: >-
         Contributions to the workflow automation platform.
       stack: [TypeScript]
-      url: https://n8n.io
+      url: https://github.com/n8n-io/n8n-docs/commits/main/?author=ninadnaik10
 
     - name: CircuitVerse
+      logo: /logos/circuitverse.png
       description: >-
         Contributions to the open-source digital logic circuit simulator.
-      stack: [JavaScript, Ruby]
-      url: https://circuitverse.org
-
-    - name: Ninad's Blog
-      description: >-
-        A responsive static blogging site, migrated from vanilla HTML/CSS/JS to
-        Next.js and Markdown. Fully statically generated.
-      stack: [Next.js, React, Markdown]
-      url: https://blog.ninadnaik.me/
-      repo: https://github.com/ninadnaik10/blog
-
-    - name: dotfiles
-      description: >-
-        My complete development environment — shell, editor and tooling config,
-        versioned and reproducible.
-      stack: [Shell]
-      repo: https://github.com/ninadnaik10/dotfiles
+      stack: [JavaScript]
+      url: https://github.com/CircuitVerse/CircuitVerse/commits/master/?author=ninadnaik10
 
 projects:
   - name: Redspot
+    logo: /logos/redspot.png
     date: June 2026
     description: >-
       A real-time website click analytics platform. A FastAPI ingestion server,
@@ -190,6 +183,7 @@ projects:
     featured: true
 
   - name: SpeakSure
+    logo: /logos/speaksure.png
     date: October 2025
     description: >-
       An automated AI behavioural interview system that quantifies confidence in
@@ -202,15 +196,19 @@ projects:
     featured: true
 
   - name: Shortomega
+    logo: /logos/shortomega.png
     date: November 2024
     description: >-
       A full-stack URL shortener built with a focus on system design, with a
       dashboard, analytics aggregation and rate limiting, Dockerised. Redis runs
-      as the primary database — I published a technical blog on the approach.
+      as the primary database. I published a technical blog on the approach.
     stack: [React.js, Next.js, Node.js, NestJS, TypeScript, Redis, Docker]
     url: https://shortomega.ninadnaik.me/
+    repo: https://github.com/ninadnaik10/shortomega
+    article: https://tech.ninadnaik.me/using-redis-as-a-primary-database
 
   - name: CodeIt
+    logo: /logos/codeit.png
     description: >-
       A specialised online coding platform for instructors to create groups,
       post coding challenges, and review learners' solution submissions.
@@ -219,6 +217,7 @@ projects:
     repo: https://github.com/ninadnaik10/codeit
 
   - name: PassVault
+    logo: /logos/passvault.png
     description: >-
       A desktop password generator and vault storing credentials locally,
       secured with SHA-256 hashing and AES encryption.
@@ -226,8 +225,9 @@ projects:
     repo: https://github.com/ninadnaik10/PassVault
 
   - name: News Forecast
+    logo: /logos/news-forecast.png
     description: >-
-      An Android app for weather and news updates — temperature, conditions,
+      An Android app for weather and news updates: temperature, conditions,
       wind speed, humidity, visibility and news previews.
     stack: [Flutter, REST APIs]
     repo: https://github.com/ninadnaik10/news-forecast
@@ -235,56 +235,50 @@ projects:
 # Icons come from svgl (svgl.app) via @ridemountainpig/svgl-react, mapped by
 # display name in components/skill-icon.tsx. A name with no entry there renders
 # a monogram tile, so adding a skill here never breaks the grid.
+#
+# Grouped by layer, and ordered within each group by how central it is to the
+# work rather than alphabetically — the first few in each row are what you
+# actually reach for.
 skills:
   - group: Languages
-    items: [C, C++, Java, Python, JavaScript, TypeScript, Go]
-  - group: Frameworks
-    items: [Node.js, NestJS, FastAPI, MCP, Kafka]
-  - group: Web
-    items: [HTML, CSS, Tailwind CSS, React.js]
-  - group: Databases
-    items: [MySQL, PostgreSQL, MongoDB, Redis]
-  - group: API & Security
-    items: [REST, GraphQL, gRPC, OAuth2.0, JWT]
-  - group: Platforms & Tools
+    items: [TypeScript, JavaScript, Python, Go, C, C++, Java]
+
+  - group: Backend & APIs
+    items: [NestJS, FastAPI, Node.js, GraphQL, gRPC, MCP, OAuth2.0, JWT]
+
+  - group: Data & Messaging
+    items: [PostgreSQL, MongoDB, Redis, MySQL, Kafka]
+
+  - group: Infrastructure
     items: [Linux, Docker, Kubernetes, AWS]
 
+  - group: Frontend
+    items: [React.js, Tailwind CSS, HTML, CSS]
+
 education:
-  - degree: B.E. Information Technology
-    institution: Thadomal Shahani Engineering College, University of Mumbai
+  - degree: Bachelor of Engineering in Information Technology
+    institution: Thadomal Shahani Engineering College (TSEC), University of Mumbai
     location: Mumbai, India
     start: "2021"
     end: "2025"
     detail: CGPA 8.54 / 10
 
-# Positions held outside of employment.
-roles:
-  - title: Responsible Computing Fellow
-    org: SimPPL
-    url: https://simppl.org
-    start: March 2024
-    end: June 2024
-  - title: App Team Member
-    org: Developers' Club — TSEC
-    start: March 2023
-    end: March 2024
-  - title: Core Team Member
-    org: Google Developer Student Clubs — TSEC
-    start: August 2022
-    end: April 2024
-
-recognition:
+# Papers and publications.
+research:
   - title: Evaluating Human Speech Confidence with Deep Learning Techniques
-    detail: >-
-      Research paper, Ninad Naik et al. — ICCIS 2025, BITS Pilani, Goa.
-      Accepted for publication in the SCOPUS-indexed Springer LNNS series.
-  - title: First Runner Up
-    detail: CSS Battle 2022 and Javagenix 2022.
-  - title: Second Runner Up
-    detail: PyExpo 2023.
-  - title: Top 10
-    detail: ACE Hacks 2024.
+    authors: Ninad Naik et al.
+    venue: ICCIS 2025 - BITS Pilani, Goa
+    date: "2025"
+    status: Accepted for publication in the SCOPUS-indexed Springer LNNS series
+    summary: >-
+      Trained a multilayer perceptron and a Fuzzy Hypersphere Neural Network on
+      a custom dataset of 751 thirty-second audio samples, extracting features
+      with Wav2Vec2 to quantify speaker confidence and reaching 96% relaxed
+      testing accuracy.
+    url: https://scrs.in/verify.html?file=rmyb9a80119.pdf
+    url_label: Certificate
+    project: SpeakSure
 
 # Optional. Remove the block entirely to hide the footer note.
 footer:
-  note: Built with Next.js, HeroUI and Tailwind CSS. Content lives in a single YAML file.
+  note: 

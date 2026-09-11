@@ -4,7 +4,7 @@ import type { Key } from "@heroui/react";
 
 import { ToggleButton, ToggleButtonGroup } from "@heroui/react";
 import { useTheme } from "next-themes";
-import { useRef, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 
 import { MonitorIcon, MoonIcon, SunIcon } from "@/components/icons";
 
@@ -43,14 +43,13 @@ function paintAppearance(appearance: "light" | "dark") {
   root.style.colorScheme = appearance;
 }
 
-// Each button is 2rem wide inside a 0.25rem-padded track. Used both to place
-// the sliding thumb and to locate a button's centre without a DOM lookup.
-const BUTTON_PX = 32;
-const TRACK_PAD_PX = 4;
+/** Shared by the pre-hydration placeholder and the live control, so swapping
+ *  between them causes no layout shift. */
+const TRACK =
+  "border-border/80 bg-surface relative flex shrink-0 rounded-lg border p-1";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme, theme } = useTheme();
-  const trackRef = useRef<HTMLDivElement>(null);
 
   // The active theme is unknowable while prerendering, so hold the markup
   // steady until hydration rather than guessing and mismatching.
@@ -60,8 +59,24 @@ export function ThemeToggle() {
     () => false,
   );
 
+  // Pre-hydration the selected theme is unknowable, but the control itself is
+  // not — so render the real track and icons rather than an empty box. A blank
+  // placeholder reads as "no theme toggle" for however long hydration takes,
+  // which on a phone is long enough to notice and, if JS never runs, forever.
+  // Dimensions match the live control exactly, so hydration causes no shift.
   if (!mounted) {
-    return <div aria-hidden className="h-10 w-[6.5rem] shrink-0" />;
+    return (
+      <div aria-hidden className={TRACK}>
+        {OPTIONS.map(({ Icon, id }) => (
+          <span
+            className="text-muted flex size-10 items-center justify-center sm:size-8"
+            key={id}
+          >
+            <Icon className="size-[17px]" />
+          </span>
+        ))}
+      </div>
+    );
   }
 
   const current = (theme ?? "system") as ThemeName;
@@ -78,7 +93,7 @@ export function ThemeToggle() {
     const root = document.documentElement;
 
     // Selecting "system" when it resolves to the appearance already on screen
-    // repaints nothing, so there is nothing to reveal.
+    // repaints nothing, so there is nothing to cross-fade.
     const repaints = appearance !== resolvedTheme;
 
     if (!repaints || prefers("(prefers-reduced-motion: reduce)")) {
@@ -98,42 +113,35 @@ export function ThemeToggle() {
       return;
     }
 
-    // Expand the circle from the newly selected button to the furthest
-    // viewport corner. The button's centre is derived from the track's box and
-    // the option index, so no DOM id is needed on the ToggleButtons — their
-    // `id` is the selection key and must stay equal to the theme name.
-    const track = trackRef.current;
-    if (track) {
-      const box = track.getBoundingClientRect();
-      const nextIndex = OPTIONS.findIndex((option) => option.id === next);
-      const x =
-        box.left + TRACK_PAD_PX + nextIndex * BUTTON_PX + BUTTON_PX / 2;
-      const y = box.top + TRACK_PAD_PX + BUTTON_PX / 2;
-      const radius = Math.hypot(
-        Math.max(x, window.innerWidth - x),
-        Math.max(y, window.innerHeight - y),
-      );
-      root.style.setProperty("--theme-reveal-x", `${x}px`);
-      root.style.setProperty("--theme-reveal-y", `${y}px`);
-      root.style.setProperty("--theme-reveal-r", `${radius}px`);
-    }
-
-    document.startViewTransition(() => {
+    // Everything that actually changes the theme lives in this callback, so if
+    // a browser accepts startViewTransition but never invokes it, the click
+    // would silently do nothing. Guard with a one-shot fallback.
+    let applied = false;
+    const apply = () => {
+      if (applied) return;
+      applied = true;
       paintAppearance(appearance);
       setTheme(next);
-    });
+    };
+
+    const transition = document.startViewTransition(apply);
+    window.setTimeout(apply, 300);
+
+    // A transition aborts if the document is hidden, or if a second theme is
+    // picked before the first fade finishes — both reject `ready` and
+    // `finished`. The theme still applies either way, so swallow them rather
+    // than let an expected abort surface as an unhandled rejection.
+    transition.ready.catch(() => {});
+    transition.finished.catch(() => {});
   };
 
   return (
-    <div
-      className="border-border/80 bg-surface relative flex shrink-0 rounded-lg border p-1"
-      ref={trackRef}
-    >
+    <div className={TRACK}>
       {/* The sliding thumb. Sits behind the buttons and animates on change. */}
       <span
         aria-hidden
-        className="bg-background border-border/60 pointer-events-none absolute top-1 left-1 size-8 rounded-md border shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.34,1.4,0.64,1)]"
-        style={{ transform: `translateX(${activeIndex * BUTTON_PX}px)` }}
+        className="bg-background border-border/60 pointer-events-none absolute top-1 bottom-1 left-1 w-[calc((100%-0.5rem)/3)] rounded-md border shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.34,1.4,0.64,1)]"
+        style={{ transform: `translateX(${activeIndex * 100}%)` }}
       />
 
       <ToggleButtonGroup
@@ -150,7 +158,7 @@ export function ThemeToggle() {
           <ToggleButton
             isIconOnly
             aria-label={label}
-            className="text-muted data-[selected=true]:text-foreground size-8 rounded-md bg-transparent transition-colors data-[selected=true]:bg-transparent"
+            className="text-muted data-[selected=true]:text-foreground size-10 rounded-md bg-transparent transition-colors data-[selected=true]:bg-transparent sm:size-8"
             id={id}
             key={id}
           >

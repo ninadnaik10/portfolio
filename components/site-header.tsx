@@ -1,16 +1,18 @@
 import { ScrollShadow } from "@heroui/react";
+import Image from "next/image";
 
+import { ResumeButton } from "@/components/resume-button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { Content } from "@/lib/content";
 
 const NAV = [
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
+  { href: "#education", label: "Education" },
   { href: "#open-source", label: "Open Source" },
   { href: "#projects", label: "Projects" },
+  { href: "#research", label: "Research" },
   { href: "#skills", label: "Skills" },
-  { href: "#education", label: "Education" },
-  { href: "#recognition", label: "Recognition" },
 ];
 
 const LINK =
@@ -20,11 +22,26 @@ export function SiteHeader({ profile }: { profile: Content["profile"] }) {
   return (
     <header className="border-border/70 bg-background/80 sticky top-0 z-50 border-b backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-4 px-6">
-        <a
-          className="font-mono text-sm font-bold tracking-tight whitespace-nowrap"
-          href="#top"
-        >
-          {profile.name}
+        {/* The wordmark ships in two colourways; only one is ever in the
+            accessibility tree, so the alt text is not announced twice. */}
+        <a className="min-w-0 shrink" href="#top">
+          <Image
+            priority
+            alt={profile.name}
+            className="h-4 w-auto max-w-full object-contain object-left sm:h-5 dark:hidden"
+            height={325}
+            src="/logo.png"
+            width={2809}
+          />
+          <Image
+            priority
+            alt={profile.name}
+            aria-hidden
+            className="hidden h-4 w-auto max-w-full object-contain object-left sm:h-5 dark:block"
+            height={325}
+            src="/logo-white.png"
+            width={2809}
+          />
         </a>
 
         {/* Seven links only fit beside the name on a wide desktop. */}
@@ -40,16 +57,9 @@ export function SiteHeader({ profile }: { profile: Content["profile"] }) {
           </ul>
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 xl:ml-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2 xl:ml-2">
           {profile.resume ? (
-            <a
-              className="border-border hover:border-foreground/40 hover:bg-surface hidden rounded-md border px-3.5 py-2 text-sm font-semibold transition-colors sm:inline-block"
-              href={profile.resume}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Resume
-            </a>
+            <ResumeButton href={profile.resume} size="sm" />
           ) : null}
           <ThemeToggle />
         </div>
