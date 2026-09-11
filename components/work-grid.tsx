@@ -93,7 +93,7 @@ function WorkCard({ work }: { work: Work }) {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Article
+                Blog
                 <ArrowUpRightIcon className="size-3" />
               </Link>
             ) : null}

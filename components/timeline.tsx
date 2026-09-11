@@ -89,7 +89,7 @@ function TimelineItem({ item }: { item: Job }) {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Write-up
+                Blog
                 <ArrowUpRightIcon className="size-3" />
               </Link>
             ) : null}
