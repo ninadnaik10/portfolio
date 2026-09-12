@@ -10,7 +10,7 @@ export type SocialIcon =
   | "instagram"
   | "mail"
   | "globe"
-  | "rss";
+  | "blog";
 
 export interface Social {
   label: string;

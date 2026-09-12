@@ -31,7 +31,7 @@ about:
     new people. I love to learn about Astronomy.
 
 # Rendered as icon buttons in the header and again in the footer.
-# `icon` must be one of: github, linkedin, twitter, instagram, mail, globe, rss
+# `icon` must be one of: github, linkedin, twitter, instagram, mail, globe, blog
 socials:
   - label: GitHub
     icon: github
@@ -40,7 +40,7 @@ socials:
     icon: linkedin
     url: https://linkedin.com/in/ninadn
   - label: Tech Blog
-    icon: rss
+    icon: blog
     url: https://tech.ninadnaik.me
   - label: Twitter
     icon: twitter

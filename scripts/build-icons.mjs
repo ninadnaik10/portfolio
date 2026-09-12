@@ -1,95 +1,75 @@
 /**
  * Renders every skill icon to a standalone file in public/icons/.
  *
- * The icons used to be inlined into the page. That put ~118KB of path data
- * into the HTML (and again into the RSC payload) for a page whose actual text
- * is under 6KB — which anything reading the page as text has to wade through.
- * As files they are fetched only by browsers, and cached.
+ * Shapes come from react-icons, which bundles Simple Icons (brand marks),
+ * Font Awesome and Lucide. They are written to disk rather than inlined:
+ * inlining these 27 marks costs ~51KB of markup, and the App Router's RSC
+ * payload duplicates it, so it would put ~100KB into a page whose readable
+ * text is under 6KB.
+ *
+ * The files are used as CSS masks, not <img>, so a single monochrome file
+ * takes its colour from the theme — see `.skill-mark` in globals.css.
  *
  * Run with: node scripts/build-icons.mjs
  */
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import * as svgl from "@ridemountainpig/svgl-react";
+import * as fa6 from "react-icons/fa6";
+import * as si from "react-icons/si";
 
 const OUT = "public/icons";
+// Wipe first: a renamed or dropped icon would otherwise leave a stale file
+// behind that nothing references.
+rmSync(OUT, { force: true, recursive: true });
 mkdirSync(OUT, { recursive: true });
 
-// name -> svgl export, or [lightExport, darkExport] for theme pairs
-const SVGL = {
-  aws: ["AmazonWebServicesLight", "AmazonWebServicesDark"],
-  c: ["C"],
-  cpp: ["CPlusPlus"],
-  css: ["CSS"],
-  docker: ["Docker"],
-  fastapi: ["FastAPI"],
-  graphql: ["GraphQL"],
-  html: ["HTML5"],
-  java: ["Java"],
-  javascript: ["JavaScript"],
-  jwt: ["JWT"],
-  kafka: ["ApacheKafkaLight", "ApacheKafkaDark"],
-  kubernetes: ["Kubernetes"],
-  linux: ["Linux"],
-  mcp: ["ModelContextProtocolLight", "ModelContextProtocolDark"],
-  mongodb: ["MongoDBLight", "MongoDBDark"],
-  mysql: ["MySQLLight", "MySQLDark"],
-  nestjs: ["NestJS"],
-  nodejs: ["Nodejs"],
-  postgresql: ["PostgreSQL"],
-  python: ["Python"],
-  react: ["ReactLight", "ReactDark"],
-  redis: ["Redis"],
-  tailwind: ["TailwindCSS"],
-  typescript: ["TypeScript"],
+/** icon basename -> react-icons component. gRPC has no mark in any set. */
+const ICONS = {
+  aws: fa6.FaAws,
+  c: si.SiC,
+  cpp: si.SiCplusplus,
+  css: si.SiCss,
+  docker: si.SiDocker,
+  fastapi: si.SiFastapi,
+  go: si.SiGo,
+  graphql: si.SiGraphql,
+  html: si.SiHtml5,
+  java: fa6.FaJava,
+  javascript: si.SiJavascript,
+  jwt: si.SiJsonwebtokens,
+  kafka: si.SiApachekafka,
+  kubernetes: si.SiKubernetes,
+  linux: si.SiLinux,
+  mcp: si.SiModelcontextprotocol,
+  mongodb: si.SiMongodb,
+  mysql: si.SiMysql,
+  nestjs: si.SiNestjs,
+  nodejs: si.SiNodedotjs,
+  oauth: si.SiAuth0,
+  postgresql: si.SiPostgresql,
+  python: si.SiPython,
+  react: si.SiReact,
+  redis: si.SiRedis,
+  tailwind: si.SiTailwindcss,
+  typescript: si.SiTypescript,
 };
-
-// Devicon marks svgl lacks, or ships in a shape that fights the grid.
-// `ink` bakes a colour per theme: an external <img> cannot inherit currentColor.
-const DEVICON = {
-  go: { slug: "go", variant: "original" },
-  grpc: { slug: "grpc", variant: "plain", ink: ["#1b1b1f", "#e6e6e9"] },
-  oauth: { slug: "oauth", variant: "plain", ink: ["#1b1b1f", "#e6e6e9"] },
-};
-
-const tidy = (svg) =>
-  svg
-    .replace(/<\?xml[^>]*\?>/g, "")
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/\s(width|height)="[^"]*"/g, "")
-    .trim();
 
 let written = 0;
-const write = (name, svg) => {
-  writeFileSync(join(OUT, `${name}.svg`), tidy(svg));
-  written += 1;
-};
-
-for (const [name, exports_] of Object.entries(SVGL)) {
-  const [light, dark] = exports_;
-  write(dark ? `${name}-light` : name, renderToStaticMarkup(React.createElement(svgl[light])));
-  if (dark) write(`${name}-dark`, renderToStaticMarkup(React.createElement(svgl[dark])));
-}
-
-for (const [name, { slug, variant, ink }] of Object.entries(DEVICON)) {
-  const file = join("node_modules/devicon/icons", slug, `${slug}-${variant}.svg`);
-  const raw = readFileSync(file, "utf8");
-  if (!ink) {
-    write(name, raw);
+for (const [name, Component] of Object.entries(ICONS)) {
+  if (!Component) {
+    console.warn(`[icons] no component for ${name} — skipped`);
     continue;
   }
-  const [lightInk, darkInk] = ink;
-  // these variants carry no fill attributes and rely on the SVG default of
-  // black, so the colour has to be set on the root
-  const paint = (colour) =>
-    raw
-      .replace(/\sfill="(?!none")[^"]*"/g, ` fill="${colour}"`)
-      .replace(/<svg\b/, `<svg fill="${colour}"`);
-  write(`${name}-light`, paint(lightInk));
-  write(`${name}-dark`, paint(darkInk));
+  // A mask only reads the alpha channel, so the fill colour is irrelevant;
+  // what matters is that the shapes are opaque.
+  const svg = renderToStaticMarkup(React.createElement(Component))
+    .replace(/\s(width|height)="[^"]*"/g, "")
+    .replace(/fill="currentColor"/g, 'fill="#000"');
+  writeFileSync(join(OUT, `${name}.svg`), svg);
+  written += 1;
 }
 
 console.log(`wrote ${written} icons to ${OUT}/`);

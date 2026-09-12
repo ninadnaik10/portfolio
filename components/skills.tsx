@@ -25,7 +25,7 @@ export function Skills({
                 >
                   {/* svgl logos render at width/height 100%, so the box sizes
                       them. max-w keeps a wide wordmark from stretching. */}
-                  <span className="skill-logo flex h-8 w-full items-center justify-center [&_img]:h-full [&_img]:w-auto [&_img]:max-w-full [&_svg]:h-full [&_svg]:w-auto [&_svg]:max-w-full">
+                  <span className="flex h-8 w-full items-center justify-center">
                     <SkillIcon name={name} />
                   </span>
                   <span className="text-xs leading-tight font-medium">

@@ -1,11 +1,11 @@
 /**
- * Skill icons are referenced as files in /public/icons, not inlined.
+ * Skill marks are CSS masks over files in /public/icons, not inline SVG.
  *
- * Inlining put ~118KB of path data into a page whose readable text is under
- * 6KB — and the App Router's RSC payload duplicates the markup, so every byte
- * of SVG was paid for twice. Anything consuming the page as text (crawlers,
- * agents, `curl`) had to wade through it. As <img> files they are fetched by
- * browsers only, and cached.
+ * react-icons ships monochrome single-path shapes. Inlining the 27 of them
+ * costs ~51KB of markup, doubled by the RSC payload, on a page whose readable
+ * text is under 6KB. As a mask the file carries only the shape and the colour
+ * comes from CSS — so one file works in both themes, which an <img> could not
+ * do without baking a variant per theme.
  *
  * Regenerate the files with: node scripts/build-icons.mjs
  */
@@ -20,7 +20,6 @@ const ICONS: Record<string, string> = {
   fastapi: "fastapi",
   go: "go",
   graphql: "graphql",
-  grpc: "grpc",
   html: "html",
   java: "java",
   javascript: "javascript",
@@ -42,22 +41,6 @@ const ICONS: Record<string, string> = {
   typescript: "typescript",
 };
 
-/**
- * Icons that ship a file per theme. Either the artwork would disappear against
- * one background (svgl's Light/Dark pairs), or it is a monochrome mark whose
- * ink had to be baked in — an external <img> cannot inherit `currentColor`.
- */
-const THEMED = new Set([
-  "aws",
-  "grpc",
-  "kafka",
-  "mcp",
-  "mongodb",
-  "mysql",
-  "oauth",
-  "react",
-]);
-
 export function SkillIcon({ name }: { name: string }) {
   const icon = ICONS[name.toLowerCase()];
 
@@ -69,32 +52,11 @@ export function SkillIcon({ name }: { name: string }) {
     );
   }
 
-  // Decorative: each tile already carries the name as text underneath.
-  const common = "size-full object-contain";
-
-  if (!THEMED.has(icon)) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element -- see file header
-      <img alt="" aria-hidden className={common} src={`/icons/${icon}.svg`} />
-    );
-  }
-
   return (
-    <>
-      {/* eslint-disable @next/next/no-img-element -- see file header */}
-      <img
-        alt=""
-        aria-hidden
-        className={`${common} dark:hidden`}
-        src={`/icons/${icon}-light.svg`}
-      />
-      <img
-        alt=""
-        aria-hidden
-        className={`hidden ${common} dark:block`}
-        src={`/icons/${icon}-dark.svg`}
-      />
-      {/* eslint-enable @next/next/no-img-element */}
-    </>
+    <span
+      aria-hidden
+      className="skill-mark"
+      style={{ maskImage: `url(/icons/${icon}.svg)`, WebkitMaskImage: `url(/icons/${icon}.svg)` }}
+    />
   );
 }

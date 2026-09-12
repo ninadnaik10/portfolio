@@ -40,21 +40,24 @@
     padding: calc(var(--spacing) * 6);
   }
 
-  /* Skill logos sit as a calm monochrome grid and bloom into their brand
-     colours on hover. Written as plain CSS rather than
-     `group-hover:grayscale-0` because Tailwind has already been observed
-     silently not emitting a utility for this component. */
-  .skill-logo {
-    filter: grayscale(1);
-    opacity: 0.72;
-    transition:
-      filter 250ms ease,
-      opacity 250ms ease;
+  /* Skill marks are CSS masks, so one monochrome file serves both themes and
+     the colour is ours to control. Muted at rest, foreground on hover. */
+  .skill-mark {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--muted);
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    transition: background-color 200ms ease;
   }
 
-  .skill-tile:hover .skill-logo {
-    filter: grayscale(0);
-    opacity: 1;
+  .skill-tile:hover .skill-mark {
+    background-color: var(--foreground);
   }
 
   /* The big section headings. */
@@ -137,7 +140,7 @@ html.theme-fade * {
     transition: none !important;
   }
 
-  .skill-logo {
+  .skill-mark {
     transition: none;
   }
 }
