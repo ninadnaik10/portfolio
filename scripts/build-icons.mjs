@@ -12,7 +12,7 @@
  *
  * Run with: node scripts/build-icons.mjs
  */
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 import React from "react";
@@ -69,6 +69,21 @@ for (const [name, Component] of Object.entries(ICONS)) {
     .replace(/\s(width|height)="[^"]*"/g, "")
     .replace(/fill="currentColor"/g, 'fill="#000"');
   writeFileSync(join(OUT, `${name}.svg`), svg);
+  written += 1;
+}
+
+/**
+ * Marks react-icons has no equivalent for live in assets/icons/. They are
+ * copied through the same flattening as the generated ones — a mask reads only
+ * the alpha channel, so gradients and brand colours are collapsed to a plain
+ * silhouette. Kept out of public/ because this script wipes that directory.
+ */
+const CUSTOM = "assets/icons";
+for (const file of readdirSync(CUSTOM).filter((f) => f.endsWith(".svg"))) {
+  const svg = readFileSync(join(CUSTOM, file), "utf8")
+    .replace(/\s(width|height)="[^"]*"/g, "")
+    .replace(/fill="(?!none")[^"]*"/g, 'fill="#000"');
+  writeFileSync(join(OUT, file), svg);
   written += 1;
 }
 

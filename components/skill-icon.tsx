@@ -20,6 +20,7 @@ const ICONS: Record<string, string> = {
   fastapi: "fastapi",
   go: "go",
   graphql: "graphql",
+  grpc: "grpc",
   html: "html",
   java: "java",
   javascript: "javascript",
