@@ -14,7 +14,10 @@ export function Hero({
   socials: Content["socials"];
 }) {
   return (
-    <section className="scroll-mt-32 pt-16 pb-20 sm:pt-24 xl:scroll-mt-24" id="about">
+    <section
+      className="section-block scroll-mt-32 pt-16 pb-20 sm:pt-24 xl:scroll-mt-24"
+      id="about"
+    >
       <div className="flex flex-col-reverse items-start gap-10 md:flex-row md:items-center md:justify-between md:gap-14">
         <div className="min-w-0 flex-1">
           <p className="eyebrow">

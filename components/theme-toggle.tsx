@@ -140,7 +140,7 @@ export function ThemeToggle() {
       {/* The sliding thumb. Sits behind the buttons and animates on change. */}
       <span
         aria-hidden
-        className="bg-background border-border/60 pointer-events-none absolute top-1 bottom-1 left-1 w-[calc((100%-0.5rem)/3)] rounded-md border shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.34,1.4,0.64,1)]"
+        className="theme-thumb bg-background border-border/60 pointer-events-none absolute top-1 bottom-1 left-1 w-[calc((100%-0.5rem)/3)] rounded-md border shadow-sm"
         style={{ transform: `translateX(${activeIndex * 100}%)` }}
       />
 

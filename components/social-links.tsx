@@ -27,7 +27,7 @@ export function SocialLinks({
           <li key={social.url}>
             <Link
               aria-label={social.label}
-              className={`${box} text-muted hover:text-foreground hover:border-foreground/25 hover:bg-surface flex items-center justify-center rounded-md border border-transparent no-underline transition-colors`}
+              className={`${box} press-scale text-muted hover:text-foreground hover:border-foreground/25 hover:bg-surface flex items-center justify-center rounded-md border border-transparent no-underline`}
               href={social.url}
               rel={external ? "noopener noreferrer me" : undefined}
               target={external ? "_blank" : undefined}

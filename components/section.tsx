@@ -10,7 +10,11 @@ export function Section({
   title: string;
 }) {
   return (
-    <section aria-labelledby={`${id}-title`} className="scroll-mt-32 xl:scroll-mt-24" id={id}>
+    <section
+      aria-labelledby={`${id}-title`}
+      className="section-block scroll-mt-32 xl:scroll-mt-24"
+      id={id}
+    >
       <header className="mb-10">
         <span className="eyebrow">
           {index} <span className="text-separator mx-1">/</span> {title}

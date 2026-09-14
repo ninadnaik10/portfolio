@@ -84,7 +84,7 @@ function TimelineItem({ item }: { item: Job }) {
             ) : null}
             {item.article ? (
               <Link
-                className="text-muted hover:text-foreground inline-flex items-center gap-1 text-xs font-medium no-underline"
+                className="text-muted hover:text-foreground inline-flex items-center gap-1 text-xs font-medium no-underline transition-colors"
                 href={item.article}
                 rel="noopener noreferrer"
                 target="_blank"

@@ -21,7 +21,7 @@ export function ResumeButton({
 }) {
   return (
     <a
-      className={`${buttonVariants({ size, variant: "primary" })} ${className ?? ""}`}
+      className={`${buttonVariants({ size, variant: "primary" })} press-scale ${className ?? ""}`}
       href={href}
       rel="noopener noreferrer"
       target="_blank"
