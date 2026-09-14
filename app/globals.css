@@ -27,6 +27,15 @@
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
     text-rendering: optimizeLegibility;
   }
+
+  /* Superellipse corners. Does nothing without a radius, so this covers
+     cards, chips, avatars, buttons, and every rounded-* utility. Browsers
+     that don't know corner-shape yet keep the circular arc. */
+  *,
+  *::before,
+  *::after {
+    corner-shape: squircle;
+  }
 }
 
 @layer components {
