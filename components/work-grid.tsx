@@ -3,6 +3,7 @@ import { Card, Chip, Link } from "@heroui/react";
 import { LogoAvatar } from "@/components/logo-avatar";
 
 import { ArrowUpRightIcon, socialIcons } from "@/components/icons";
+import { CardLink } from "@/components/card-link";
 import { Section } from "@/components/section";
 import type { Work } from "@/lib/content";
 
@@ -70,32 +71,15 @@ function WorkCard({ work }: { work: Work }) {
           </ul>
         ) : null}
 
-        {/* Sits above the card-wide overlay link so it stays clickable. */}
         {(work.repo && work.url) || work.article ? (
-          <div className="relative z-10 flex flex-wrap items-center gap-x-5 gap-y-2">
+          <div className="flex flex-wrap items-center gap-2">
             {work.repo && work.url ? (
-              <Link
-                aria-label={`${work.name} source on GitHub`}
-                className="text-muted hover:text-foreground inline-flex items-center gap-1.5 text-xs font-medium no-underline"
-                href={work.repo}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <GitHubIcon className="size-3.5" />
+              <CardLink href={work.repo} icon={GitHubIcon}>
                 Source
-              </Link>
+              </CardLink>
             ) : null}
             {work.article ? (
-              <Link
-                aria-label={`${work.name} write-up`}
-                className="text-muted hover:text-foreground inline-flex items-center gap-1 text-xs font-medium no-underline"
-                href={work.article}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Blog
-                <ArrowUpRightIcon className="size-3" />
-              </Link>
+              <CardLink href={work.article}>Blog</CardLink>
             ) : null}
           </div>
         ) : null}

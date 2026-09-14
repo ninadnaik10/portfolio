@@ -46,7 +46,7 @@ function paintAppearance(appearance: "light" | "dark") {
 /** Shared by the pre-hydration placeholder and the live control, so swapping
  *  between them causes no layout shift. */
 const TRACK =
-  "border-border/80 bg-surface relative flex shrink-0 rounded-lg border p-1";
+  "border-border/80 bg-surface relative flex shrink-0 rounded-lg border p-0.5";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme, theme } = useTheme();
@@ -69,10 +69,10 @@ export function ThemeToggle() {
       <div aria-hidden className={TRACK}>
         {OPTIONS.map(({ Icon, id }) => (
           <span
-            className="text-muted flex size-10 items-center justify-center sm:size-8"
+            className="text-muted flex size-9 items-center justify-center sm:size-7"
             key={id}
           >
-            <Icon className="size-[17px]" />
+            <Icon className="size-4" />
           </span>
         ))}
       </div>
@@ -140,7 +140,7 @@ export function ThemeToggle() {
       {/* The sliding thumb. Sits behind the buttons and animates on change. */}
       <span
         aria-hidden
-        className="bg-background border-border/60 pointer-events-none absolute top-1 bottom-1 left-1 w-[calc((100%-0.5rem)/3)] rounded-md border shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.34,1.4,0.64,1)]"
+        className="bg-background border-border/60 pointer-events-none absolute top-0.5 bottom-0.5 left-0.5 w-[calc((100%-0.25rem)/3)] rounded-md border shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.34,1.4,0.64,1)]"
         style={{ transform: `translateX(${activeIndex * 100}%)` }}
       />
 
@@ -158,11 +158,11 @@ export function ThemeToggle() {
           <ToggleButton
             isIconOnly
             aria-label={label}
-            className="text-muted data-[selected=true]:text-foreground size-10 rounded-md bg-transparent transition-colors data-[selected=true]:bg-transparent sm:size-8"
+            className="text-muted data-[selected=true]:text-foreground size-9 rounded-md bg-transparent transition-colors data-[selected=true]:bg-transparent sm:size-7"
             id={id}
             key={id}
           >
-            <Icon className="size-[17px]" />
+            <Icon className="size-4" />
           </ToggleButton>
         ))}
       </ToggleButtonGroup>

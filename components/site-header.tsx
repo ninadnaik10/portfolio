@@ -6,7 +6,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import type { Content } from "@/lib/content";
 
 const NAV = [
-  { href: "#about", label: "About" },
+  // { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
   { href: "#education", label: "Education" },
   { href: "#open-source", label: "Open Source" },

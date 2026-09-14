@@ -1,6 +1,6 @@
-import { Card, Link } from "@heroui/react";
+import { Card } from "@heroui/react";
 
-import { ArrowUpRightIcon } from "@/components/icons";
+import { CardLink } from "@/components/card-link";
 import { Section } from "@/components/section";
 import type { Paper } from "@/lib/content";
 
@@ -61,25 +61,16 @@ export function Research({
                     {paper.status}
                   </p>
                 ) : null}
-                <div className="text-muted flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium">
+                <div className="flex flex-wrap items-center gap-2">
                   {paper.url ? (
-                    <Link
-                      className="text-muted hover:text-foreground inline-flex items-center gap-1 no-underline"
-                      href={paper.url}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
+                    <CardLink href={paper.url}>
                       {paper.url_label ?? "Read the paper"}
-                      <ArrowUpRightIcon className="size-3" />
-                    </Link>
+                    </CardLink>
                   ) : null}
                   {paper.project ? (
-                    <Link
-                      className="text-muted hover:text-foreground no-underline"
-                      href="#projects"
-                    >
+                    <CardLink external={false} href="#projects">
                       Built as {paper.project}
-                    </Link>
+                    </CardLink>
                   ) : null}
                 </div>
               </Card.Footer>

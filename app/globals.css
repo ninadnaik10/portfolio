@@ -60,6 +60,28 @@
     background-color: var(--foreground);
   }
 
+  /* The cut line on a collapsed card: the last visible text is blurred and
+     dissolves into the card surface, so it reads as continuing rather than as
+     a hard crop. backdrop-filter blurs whatever sits beneath it, so the text
+     itself needs no filter and stays selectable. */
+  .card-peek-fade {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 5rem;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      var(--surface) 15%,
+      color-mix(in oklab, var(--surface) 60%, transparent) 55%,
+      transparent
+    );
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    mask-image: linear-gradient(to top, #000 55%, transparent);
+    -webkit-mask-image: linear-gradient(to top, #000 55%, transparent);
+  }
+
   /* The big section headings. */
   .section-title {
     @apply text-4xl font-extrabold tracking-tight sm:text-5xl;

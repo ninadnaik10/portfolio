@@ -64,23 +64,65 @@ experience:
     location: Mumbai, India
     highlights:
       - >-
-        Engineered low-latency backend architectures using NestJS and FastAPI,
-        applying targeted database indexes and query optimisation to handle
-        high-concurrency enterprise workloads.
+        Engineered the integration and tool-execution layer that Commotion's Voice AI
+        agents call to act inside customers' real business systems. Built and
+        shipped 100+ enterprise connectors exposing 3,200+ agent-callable
+        actions and 325 webhook event triggers across 17 applications,
+        spanning SAP, Oracle Fusion, Salesforce, ServiceNow, Workday and 95+
+        other enterprise platforms.
       - >-
-        Developed MCP frameworks and A2A orchestration patterns for real-time
-        contextual voice and text AI agents.
+        Delivered integrations end to end for 10+ named enterprise accounts
+        across Tata group companies and multinationals, from credential
+        negotiation with the customer's IT team through to production release:
+        a contact-centre Voice AI bot and an Accounts Payable invoice
+        automation pipeline for Tata Chemicals over SAP S/4HANA and Ariba,
+        IVR-facing actions for Genpact, and 22 customer-written Python scripts
+        ported into standard platform actions for HDFC ERGO.
       - >-
-        Built robust AI integrations with platforms including Salesforce,
-        ServiceNow and SAP, unifying multi-system workflows.
+        Built MCP and A2A agent infrastructure on mcp-context-forge, the Python
+        gateway fronting every tool call an agent makes. Extended external A2A
+        agents to full OAuth by carrying credential references through the gRPC
+        interface instead of raw secrets, resolved at run time, and wrapped an
+        external MCP server as a first-class platform connector with credential
+        verification that fails at creation rather than at call time.
       - >-
-        Enforced security using OAuth and JWT auth schemes, ensuring platform
-        integrity via SAST and VAPT security analysis.
+        Load-tested the MCP gateway under simulated voice-call concurrency with
+        a harness that holds persistent SSE sessions through the MCP protocol
+        handshake and issues tool calls on a conversational cadence. Swept 40 to
+        500 concurrent sessions against pod count, Gunicorn workers, CPU limits
+        and tool type, capturing p50 to p99 tail latency to set production pod
+        sizing and the threshold for scaling horizontally rather than
+        vertically.
       - >-
-        Developed low-latency Voice AI solutions in collaboration with multiple
-        Tata companies and MNCs to streamline automated operations.
+        Diagnosed and fixed an OAuth flow that broke under pod autoscaling. The
+        SSE session was held in local process memory, so the provider's callback
+        could land on any pod while only one held the client's connection, a bug
+        invisible at one replica and guaranteed at scale. Replaced the in-memory
+        store with Redis Pub/Sub keyed by session ID to decouple session
+        ownership from request routing.
+      - >-
+        Optimised the gateway's hottest query paths by adding composite
+        (name, enabled) indexes to the tool and A2A agent tables through
+        Alembic, the predicate executed on every single tool call and agent
+        invocation, while deliberately excluding a table whose lookups are
+        always by primary key. Replaced per-request Postgres clients with
+        cached connection pools that evict themselves on fatal errors.
+      - >-
+        Engineered enterprise authentication across OAuth 2.0 authorization-code
+        and client-credentials flows, including in-app SHA-256 SAML bearer
+        assertion signing for SAP SuccessFactors, which issues no refresh token,
+        a multi-tenant fix replacing a hardcoded Atlassian cloudId that routed
+        every customer's requests to a single tenant, and credential-scoped
+        action maps so an agent only sees the actions its credential can run.
+      - >-
+        Hardened the platform's security and supply chain: cleared Trivy and
+        Black Duck Polaris findings through non-root container execution,
+        read-only root filesystems, dropped capabilities and dependency
+        patching; eliminated a raw interpolated-SQL write path in favour of
+        parameterised queries over a pooled connection; and drove lockfile
+        pinned builds so dependency versions cannot drift between environments.
       - Promoted from Backend Developer Intern (January 2025 – June 2025).
-    stack: [NestJS, FastAPI, MCP, A2A, PostgreSQL, OAuth2.0, JWT]
+    stack: [NestJS, TypeScript, Python, FastAPI, MCP, A2A, PostgreSQL, MongoDB, Redis, gRPC, GraphQL, Kubernetes, Helm, OAuth2.0, SAML, JWT, Docker]
 
   - company: Arxena Inc.
     logo: /logos/arxena.jpeg
@@ -277,7 +319,7 @@ research:
       testing accuracy.
     url: https://scrs.in/verify.html?file=rmyb9a80119.pdf
     url_label: Certificate
-    project: SpeakSure
+    # project: SpeakSure
 
 # Optional. Remove the block entirely to hide the footer note.
 footer:
