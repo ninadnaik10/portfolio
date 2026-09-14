@@ -14,7 +14,7 @@ function WorkCard({ work }: { work: Work }) {
 
   return (
     <Card
-      className={`group hover:bg-surface-secondary relative flex h-full flex-col transition-colors ${
+      className={`group press-scale-card hover:bg-surface-secondary relative flex h-full flex-col ${
         work.featured ? "sm:col-span-2" : ""
       }`}
     >

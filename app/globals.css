@@ -66,6 +66,31 @@
   }
 }
 
+/* Press scale for links that are not HeroUI <Button> (no React Aria pressed
+   state). Color stays on the existing 200ms ease; transform is faster. */
+.press-scale {
+  transition:
+    transform 160ms ease,
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.press-scale:active {
+  transform: scale(0.97);
+}
+
+/* Click lands on the overlay <a>, not the card. */
+.press-scale-card {
+  transition:
+    transform 160ms ease,
+    background-color 200ms ease;
+}
+
+.press-scale-card:has(:active) {
+  transform: scale(0.99);
+}
+
 /* A hairline rule that fades out at the right edge — used under section
    headers so the eye is pulled across the page rather than boxed in. */
 @utility rule-fade {
@@ -140,7 +165,14 @@ html.theme-fade * {
     transition: none !important;
   }
 
-  .skill-mark {
+  .skill-mark,
+  .press-scale,
+  .press-scale-card {
     transition: none;
+  }
+
+  .press-scale:active,
+  .press-scale-card:has(:active) {
+    transform: none;
   }
 }
