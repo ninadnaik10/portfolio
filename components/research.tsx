@@ -64,7 +64,7 @@ export function Research({
                 <div className="text-muted flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-medium">
                   {paper.url ? (
                     <Link
-                      className="text-muted hover:text-foreground inline-flex items-center gap-1 no-underline"
+                      className="text-muted hover:text-foreground inline-flex items-center gap-1 no-underline transition-colors"
                       href={paper.url}
                       rel="noopener noreferrer"
                       target="_blank"
@@ -75,7 +75,7 @@ export function Research({
                   ) : null}
                   {paper.project ? (
                     <Link
-                      className="text-muted hover:text-foreground no-underline"
+                      className="text-muted hover:text-foreground no-underline transition-colors"
                       href="#projects"
                     >
                       Built as {paper.project}

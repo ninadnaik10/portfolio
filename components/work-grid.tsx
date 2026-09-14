@@ -48,7 +48,7 @@ function WorkCard({ work }: { work: Work }) {
             </span>
           ) : null}
           {primary ? (
-            <ArrowUpRightIcon className="text-muted group-hover:text-accent mt-1 size-4 shrink-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <ArrowUpRightIcon className="work-arrow text-muted mt-1 size-4 shrink-0" />
           ) : null}
         </Card.Title>
         </div>
@@ -76,7 +76,7 @@ function WorkCard({ work }: { work: Work }) {
             {work.repo && work.url ? (
               <Link
                 aria-label={`${work.name} source on GitHub`}
-                className="text-muted hover:text-foreground inline-flex items-center gap-1.5 text-xs font-medium no-underline"
+                className="text-muted hover:text-foreground inline-flex items-center gap-1.5 text-xs font-medium no-underline transition-colors"
                 href={work.repo}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -88,7 +88,7 @@ function WorkCard({ work }: { work: Work }) {
             {work.article ? (
               <Link
                 aria-label={`${work.name} write-up`}
-                className="text-muted hover:text-foreground inline-flex items-center gap-1 text-xs font-medium no-underline"
+                className="text-muted hover:text-foreground inline-flex items-center gap-1 text-xs font-medium no-underline transition-colors"
                 href={work.article}
                 rel="noopener noreferrer"
                 target="_blank"

@@ -8,6 +8,8 @@
      the four mono weights in use cost one file. */
   --font-sans: var(--font-open-sans);
   --font-mono: var(--font-jetbrains-mono);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @layer base {
@@ -33,6 +35,14 @@
     @apply font-mono text-xs font-medium uppercase tracking-[0.2em] text-muted;
   }
 
+  .section-block .eyebrow {
+    transition: color 200ms ease;
+  }
+
+  .section-block:target .eyebrow {
+    color: var(--accent);
+  }
+
   /* HeroUI's default card padding is 16px, which reads tight once cards carry
      a logo, a title row, bullets and a chip footer. 24px gives the content
      room without changing the card's radius or surface. */
@@ -56,8 +66,10 @@
     transition: background-color 200ms ease;
   }
 
-  .skill-tile:hover .skill-mark {
-    background-color: var(--foreground);
+  @media (hover: hover) and (pointer: fine) {
+    .skill-tile:hover .skill-mark {
+      background-color: var(--foreground);
+    }
   }
 
   /* The big section headings. */
@@ -70,7 +82,7 @@
    state). Color stays on the existing 200ms ease; transform is faster. */
 .press-scale {
   transition:
-    transform 160ms ease,
+    transform 160ms var(--ease-out),
     background-color 200ms ease,
     border-color 200ms ease,
     color 200ms ease;
@@ -83,12 +95,51 @@
 /* Click lands on the overlay <a>, not the card. */
 .press-scale-card {
   transition:
-    transform 160ms ease,
+    transform 160ms var(--ease-out),
     background-color 200ms ease;
 }
 
 .press-scale-card:has(:active) {
-  transform: scale(0.99);
+  transform: scale(0.98);
+}
+
+.work-arrow {
+  transition:
+    color 200ms ease,
+    transform 160ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .work-arrow {
+    color: var(--accent);
+    transform: translate(0.125rem, -0.125rem);
+  }
+}
+
+.nav-link::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.25rem;
+  left: 0.75rem;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0;
+  transform: scaleX(0.92);
+  transform-origin: center;
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+
+.nav-link[data-active="true"]::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.theme-thumb {
+  transition: transform 200ms var(--ease-in-out);
 }
 
 /* A hairline rule that fades out at the right edge — used under section
@@ -166,13 +217,35 @@ html.theme-fade * {
   }
 
   .skill-mark,
+  .skill-tile,
   .press-scale,
-  .press-scale-card {
+  .press-scale-card,
+  .work-arrow,
+  .theme-thumb,
+  .nav-link,
+  .transition-colors {
     transition: none;
   }
 
   .press-scale:active,
   .press-scale-card:has(:active) {
     transform: none;
+  }
+
+  .group:hover .work-arrow {
+    transform: none;
+  }
+
+  .section-block .eyebrow {
+    transition: none;
+  }
+
+  .nav-link::after {
+    transition: none;
+    transform: none;
+  }
+
+  .nav-link[data-active="true"]::after {
+    opacity: 1;
   }
 }

@@ -2,21 +2,9 @@ import { ScrollShadow } from "@heroui/react";
 import Image from "next/image";
 
 import { ResumeButton } from "@/components/resume-button";
+import { SiteNavList } from "@/components/site-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { Content } from "@/lib/content";
-
-const NAV = [
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#education", label: "Education" },
-  { href: "#open-source", label: "Open Source" },
-  { href: "#projects", label: "Projects" },
-  { href: "#research", label: "Research" },
-  { href: "#skills", label: "Skills" },
-];
-
-const LINK =
-  "text-muted hover:text-foreground hover:bg-surface rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors";
 
 export function SiteHeader({ profile }: { profile: Content["profile"] }) {
   return (
@@ -24,7 +12,7 @@ export function SiteHeader({ profile }: { profile: Content["profile"] }) {
       <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-4 px-6">
         {/* The wordmark ships in two colourways; only one is ever in the
             accessibility tree, so the alt text is not announced twice. */}
-        <a className="min-w-0 shrink" href="#top">
+        <a className="press-scale min-w-0 shrink" href="#top">
           <Image
             priority
             alt={profile.name}
@@ -46,15 +34,7 @@ export function SiteHeader({ profile }: { profile: Content["profile"] }) {
 
         {/* Seven links only fit beside the name on a wide desktop. */}
         <nav aria-label="Sections" className="ml-auto hidden xl:block">
-          <ul className="flex items-center gap-0.5">
-            {NAV.map((item) => (
-              <li key={item.href}>
-                <a className={LINK} href={item.href}>
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <SiteNavList className="flex items-center gap-0.5" />
         </nav>
 
         <div className="ml-auto flex shrink-0 items-center gap-2 xl:ml-2">
@@ -78,15 +58,7 @@ export function SiteHeader({ profile }: { profile: Content["profile"] }) {
           orientation="horizontal"
           size={28}
         >
-          <ul className="flex items-center gap-0.5 py-1.5">
-            {NAV.map((item) => (
-              <li key={item.href}>
-                <a className={LINK} href={item.href}>
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <SiteNavList className="flex items-center gap-0.5 py-1.5" />
         </ScrollShadow>
       </nav>
     </header>
