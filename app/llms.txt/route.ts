@@ -114,6 +114,8 @@ function buildLlmsTxt(): string {
       );
       if (paper.status) out.push(`  - ${line(paper.status)}`);
       if (paper.summary) out.push(`  - ${line(paper.summary)}`);
+      for (const highlight of paper.highlights ?? [])
+        out.push(`  - ${line(highlight)}`);
       if (paper.url) out.push(`  - ${paper.url_label ?? "Link"}: ${paper.url}`);
     }
     out.push("");

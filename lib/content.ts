@@ -85,6 +85,8 @@ export interface Paper {
   date?: string;
   status?: string;
   summary?: string;
+  /** Bulleted detail, rendered like a job's highlights. */
+  highlights?: string[];
   url?: string;
   /** Text for the link, e.g. "Certificate", "DOI", "PDF". */
   url_label?: string;

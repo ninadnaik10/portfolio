@@ -310,13 +310,54 @@ research:
   - title: Evaluating Human Speech Confidence with Deep Learning Techniques
     authors: Ninad Naik et al.
     venue: ICCIS 2025 - BITS Pilani, Goa
-    date: "2025"
-    status: Accepted for publication in the SCOPUS-indexed Springer LNNS series
+    date: September 2025
+    status: >-
+      Presented at the 7th International Conference on Communication and
+      Intelligent Systems, 26 to 27 September 2025. Accepted for publication in
+      the SCOPUS-indexed Springer Lecture Notes in Networks and Systems series.
     summary: >-
-      Trained a multilayer perceptron and a Fuzzy Hypersphere Neural Network on
-      a custom dataset of 751 thirty-second audio samples, extracting features
-      with Wav2Vec2 to quantify speaker confidence and reaching 96% relaxed
-      testing accuracy.
+      An automated system that classifies perceived speaker confidence on a
+      five-point scale from audio alone, built to make confidence assessment
+      and feedback scalable.
+    highlights:
+      - >-
+        Framed the task as five-way classification of perceived confidence from
+        speech, where the hardest problem is that there is no ground truth to
+        measure against: the dataset is the definition of the target, so every
+        choice about speakers, labels and clip length changes what the model
+        learns to detect.
+      - >-
+        Seeded a dataset of 751 thirty-second audio clips with no recording
+        budget, drawing from YouTube, TED and TEDx talks and recordings by
+        seven volunteers, and choosing sources where the confidence label is
+        inferable from context: early videos of creators who later became well
+        known for the low-confidence class, rehearsed conference speakers for
+        the high-confidence class. The result spans a far wider range of ages,
+        genders, accents and recording conditions than a self-recorded set
+        could.
+      - >-
+        Had four annotators rate every clip on a 1 to 5 Likert scale and took
+        the mode as the final label, measuring agreement at a mean Cohen's
+        Kappa of 0.6203 and a Fleiss' Kappa of 0.6193. That figure is the
+        practical ceiling for the task: four humans labelling the same clip
+        agree only to that degree, so this is genuinely subjective rather than
+        simply noisy.
+      - >-
+        Compared traditional acoustic features against learned ones, extracting
+        MFCCs alongside Wav2Vec2 embeddings from wav2vec2-base-960h, taking the
+        (T, 768) hidden states through temporal mean pooling into a single
+        768-dimensional vector and standardising with StandardScaler.
+      - >-
+        Evaluated Logistic Regression, a multilayer perceptron and a Fuzzy
+        Hypersphere Neural Network under 5-fold stratified cross-validation,
+        reducing the Wav2Vec2 features from 768 to 128 dimensions with
+        SelectKBest on the ANOVA F-value for the FHNN.
+      - >-
+        Wav2Vec2 with an MLP gave the best exact accuracy at 0.59, FHNN with
+        MFCCs the best macro F1 at 0.62, and both beat the Logistic Regression
+        baseline at 0.47. The non-linear models reached 0.94 to 0.96 relaxed
+        accuracy, counting a prediction within one confidence level as correct,
+        so predictions land close to the human label even when not exact.
     url: https://scrs.in/verify.html?file=rmyb9a80119.pdf
     url_label: Certificate
     # project: SpeakSure

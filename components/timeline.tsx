@@ -11,10 +11,10 @@ import type { Job } from "@/lib/content";
  * bullet count, so three sprawling bullets collapse the same as nine terse
  * ones — it is card height we are managing, not list length.
  */
-const COLLAPSE_OVER_CHARS = 900;
-const PREVIEW_BULLETS = 3;
+export const COLLAPSE_OVER_CHARS = 900;
+export const PREVIEW_BULLETS = 3;
 
-function Highlight({ highlight }: { highlight: string }) {
+export function Highlight({ highlight }: { highlight: string }) {
   return (
     <li className="text-muted relative pl-5 text-base leading-relaxed before:absolute before:top-[0.7em] before:left-0 before:h-px before:w-2.5 before:bg-current before:opacity-50">
       {highlight}

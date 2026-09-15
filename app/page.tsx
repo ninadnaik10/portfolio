@@ -33,7 +33,7 @@ export default function Page() {
       >
         <Hero about={about} profile={profile} socials={socials} />
 
-        <div className="space-y-24">
+        <div className="space-y-16 sm:space-y-20">
           <Experience index="01" jobs={experience} />
           <Education degrees={education} index="02" />
           <OpenSource content={open_source} index="03" />

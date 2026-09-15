@@ -13,7 +13,7 @@ export function SiteFooter({
   socials: Content["socials"];
 }) {
   return (
-    <footer className="mt-24 pb-16">
+    <footer className="mt-16 pb-16 sm:mt-20">
       <Separator />
       <div className="mt-10 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
