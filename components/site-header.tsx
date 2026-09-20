@@ -26,7 +26,7 @@ export function SiteHeader({ profile }: { profile: Content["profile"] }) {
             accessibility tree, so the alt text is not announced twice. */}
         <a className="min-w-0 shrink" href="#top">
           <Image
-            priority
+            preload
             alt={profile.name}
             className="h-4 w-auto max-w-full object-contain object-left sm:h-5 dark:hidden"
             height={325}
@@ -34,7 +34,7 @@ export function SiteHeader({ profile }: { profile: Content["profile"] }) {
             width={2809}
           />
           <Image
-            priority
+            preload
             alt={profile.name}
             aria-hidden
             className="hidden h-4 w-auto max-w-full object-contain object-left sm:h-5 dark:block"

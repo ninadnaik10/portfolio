@@ -4,6 +4,7 @@
 #
 # Sourced from resume.ninadnaik.me. Keep this in step with the resume PDF.
 #
+# `cover:` on a project points at a screenshot under public/covers/.
 # `logo:` on any experience, programme, project or contribution points at a
 # file under public/logos/. Until that file exists the card shows the entry's
 # initials instead — see public/logos/README.md.
@@ -193,7 +194,7 @@ open_source:
         11 patches merged into mainline: Devicetree bindings converted to JSON
         Schema, plus documentation and driver error-handling fixes.
       stack: [C, Devicetree]
-      url: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/?qt=grep&q=ninadnaik07%40gmail.com
+      url: https://github.com/torvalds/linux/commits?author=ninadnaik10&since=2026-01-01
       featured: true
 
     - name: n8n.io
@@ -212,67 +213,62 @@ open_source:
 
 projects:
   - name: Redspot
-    logo: /logos/redspot.png
+    cover: /covers/redspot.webp
     date: June 2026
     description: >-
-      A real-time website click analytics platform. A FastAPI ingestion server,
-      Kafka message queue and ClickHouse storage pipeline capture interactions
-      via a lightweight JavaScript tracking script; a React dashboard renders
-      the target site in an iframe and overlays a colour-coded canvas heatmap of
-      click density from live ClickHouse queries.
+      Real-time click analytics for any website. A small tracking script streams
+      events through Kafka into ClickHouse, and the dashboard loads the target
+      page in an iframe to paint a live heatmap of click density over it.
     stack: [FastAPI, React.js, ClickHouse, Kafka, PostgreSQL, Docker]
     repo: https://github.com/ninadnaik10/redspot
-    featured: true
 
   - name: SpeakSure
-    logo: /logos/speaksure.png
+    cover: /covers/speaksure.webp
     date: October 2025
     description: >-
-      An automated AI behavioural interview system that quantifies confidence in
-      a candidate's speech and surfaces insights to the hiring manager. Trained
-      an MLP and a Fuzzy Hypersphere Neural Network on a custom dataset of 751
-      thirty-second samples using Wav2Vec2 features, reaching 96% relaxed
-      testing accuracy. Presented as a research paper at ICCIS 2025.
+      An AI interview platform that scores a candidate's spoken confidence for
+      the hiring manager. Wav2Vec2 features feed an MLP and a Fuzzy Hypersphere
+      Neural Network, trained on a custom set of 751 thirty-second clips for 96%
+      relaxed test accuracy.
     stack: [Python, Flask, TensorFlow, React.js, MongoDB]
     repo: https://github.com/ninadnaik10/speaksure
-    featured: true
 
   - name: Shortomega
-    logo: /logos/shortomega.png
+    cover: /covers/shortomega.webp
     date: November 2024
     description: >-
-      A full-stack URL shortener built with a focus on system design, with a
-      dashboard, analytics aggregation and rate limiting, Dockerised. Redis runs
-      as the primary database. I published a technical blog on the approach.
+      A URL shortener built as a system-design exercise, with a dashboard,
+      aggregated click analytics and rate limiting. Redis is the primary
+      datastore rather than a cache, and the whole stack is containerised.
     stack: [React.js, Next.js, Node.js, NestJS, TypeScript, Redis, Docker]
     url: https://shortomega.ninadnaik.me/
     repo: https://github.com/ninadnaik10/shortomega
     article: https://tech.ninadnaik.me/using-redis-as-a-primary-database
 
-  - name: CodeIt
-    logo: /logos/codeit.png
-    description: >-
-      A specialised online coding platform for instructors to create groups,
-      post coding challenges, and review learners' solution submissions.
-    stack: [React, Firebase, AWS]
-    url: https://codeit-web.onrender.com/
-    repo: https://github.com/ninadnaik10/codeit
+  # - name: CodeIt
+  #   logo: /logos/codeit.png
+  #   description: >-
+  #     A specialised online coding platform for instructors to create groups,
+  #     post coding challenges, and review learners' solution submissions.
+  #   stack: [React, Firebase, AWS]
+  #   url: https://codeit-web.onrender.com/
+  #   repo: https://github.com/ninadnaik10/codeit
 
-  - name: PassVault
-    logo: /logos/passvault.png
-    description: >-
-      A desktop password generator and vault storing credentials locally,
-      secured with SHA-256 hashing and AES encryption.
-    stack: [Java, Swing, SQLite]
-    repo: https://github.com/ninadnaik10/PassVault
+  # - name: PassVault
+  #   logo: /logos/passvault.png
+  #   description: >-
+  #     A desktop password generator and vault storing credentials locally,
+  #     secured with SHA-256 hashing and AES encryption.
+  #   stack: [Java, Swing, SQLite]
+  #   repo: https://github.com/ninadnaik10/PassVault
 
-  - name: News Forecast
-    logo: /logos/news-forecast.png
-    description: >-
-      An Android app for weather and news updates: temperature, conditions,
-      wind speed, humidity, visibility and news previews.
-    stack: [Flutter, REST APIs]
-    repo: https://github.com/ninadnaik10/news-forecast
+  # - name: News Forecast
+  #   logo: /logos/news-forecast.png
+  #   description: >-
+  #     An Android app for weather and news updates: temperature, conditions,
+  #     wind speed, humidity, visibility and news previews.
+  #   stack: [Flutter, REST APIs]
+  #   repo: https://github.com/ninadnaik10/news-forecast
 
 # Icons come from svgl (svgl.app) via @ridemountainpig/svgl-react, mapped by
 # display name in components/skill-icon.tsx. A name with no entry there renders

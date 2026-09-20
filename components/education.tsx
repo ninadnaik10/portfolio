@@ -31,13 +31,13 @@ export function Education({
                   {degree.institution}
                   {degree.location ? (
                     <>
-                      <span className="text-separator mx-2">/</span>
+                      <span className="sep mx-2">/</span>
                       {degree.location}
                     </>
                   ) : null}
                   {degree.detail ? (
                     <>
-                      <span className="text-separator mx-2">/</span>
+                      <span className="sep mx-2">/</span>
                       <span className="text-foreground font-semibold">
                         {degree.detail}
                       </span>

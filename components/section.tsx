@@ -13,7 +13,7 @@ export function Section({
     <section aria-labelledby={`${id}-title`} className="scroll-mt-32 xl:scroll-mt-24" id={id}>
       <header className="mb-10">
         <span className="eyebrow">
-          {index} <span className="text-separator mx-1">/</span> {title}
+          {index} <span className="sep mx-1">/</span> {title}
         </span>
         <h2 className="section-title mt-3" id={`${id}-title`}>
           {title}

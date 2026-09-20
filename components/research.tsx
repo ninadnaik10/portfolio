@@ -46,7 +46,7 @@ function PaperCard({ paper }: { paper: Paper }) {
           ) : null}
           {paper.venue ? (
             <>
-              {paper.authors ? <span className="text-separator">/</span> : null}
+              {paper.authors ? <span className="sep">/</span> : null}
               <span>{paper.venue}</span>
             </>
           ) : null}

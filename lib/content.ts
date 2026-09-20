@@ -50,6 +50,8 @@ export interface Job {
 
 export interface Work {
   name: string;
+  /** Screenshot shown at the top of the card. Path under public/. */
+  cover?: string;
   /** Path under public/, e.g. /logos/redspot.png. */
   logo?: string;
   /** Initials shown while no logo file exists. Set by the loader. */
@@ -129,6 +131,18 @@ function initialsOf(label: string): string {
  * drop it and let the initials fallback render server-side instead. The slot
  * itself is kept — declaring `logo:` in YAML is what asks for the avatar.
  */
+function attachCover<T extends { cover?: string }>(item: T, label: string): T {
+  if (!item.cover) return item;
+
+  const exists = existsSync(join(process.cwd(), "public", item.cover));
+  if (!exists) {
+    console.warn(
+      `[content] cover "${item.cover}" not found in public/ — showing the logo panel for "${label}".`,
+    );
+  }
+  return { ...item, cover: exists ? item.cover : undefined };
+}
+
 function attachLogo<T extends { logo?: string }>(item: T, label: string): T {
   if (!item.logo) return item;
 
@@ -190,14 +204,14 @@ function loadContent(): Content {
       attachLogo(job, job.company),
     ),
     projects: (content.projects ?? []).map((work) =>
-      attachLogo(work, work.name),
+      attachCover(attachLogo(work, work.name), work.name),
     ),
     open_source: {
       programs: (content.open_source?.programs ?? []).map((job) =>
         attachLogo(job, job.company),
       ),
       contributions: (content.open_source?.contributions ?? []).map((work) =>
-        attachLogo(work, work.name),
+        attachCover(attachLogo(work, work.name), work.name),
       ),
     },
       skills: content.skills ?? [],

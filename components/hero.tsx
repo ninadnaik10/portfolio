@@ -21,7 +21,7 @@ export function Hero({
             {profile.role}
             {profile.location ? (
               <>
-                <span className="text-separator mx-2">/</span>
+                <span className="sep mx-2">/</span>
                 {profile.location}
               </>
             ) : null}

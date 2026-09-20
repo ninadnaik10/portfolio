@@ -20,11 +20,11 @@ const jetbrainsMono = JetBrains_Mono({
 const { about, profile, socials } = getContent();
 const SITE_URL = "https://ninadnaik.me";
 const description =
-  about[0] ?? `${profile.name} — ${profile.role}. ${profile.tagline}`;
+  about[0] ?? `${profile.name} - ${profile.role}. ${profile.tagline}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `${profile.name} — ${profile.role}`,
+  title: `${profile.name} - ${profile.role}`,
   description,
   alternates: {
     canonical: "/",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     types: { "text/plain": "/llms.txt" },
   },
   openGraph: {
-    title: `${profile.name} — ${profile.role}`,
+    title: `${profile.name} - ${profile.role}`,
     description,
     url: SITE_URL,
     siteName: profile.name,
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profile.name} — ${profile.role}`,
+    title: `${profile.name} - ${profile.role}`,
     description,
   },
 };

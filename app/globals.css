@@ -82,6 +82,14 @@
     -webkit-mask-image: linear-gradient(to top, #000 55%, transparent);
   }
 
+  /* The "/" between metadata items. --separator is sized for hairline rules
+     (dark: #212124 on a #18181b surface, ~1.1:1), so as text it is invisible
+     in both themes. Dim currentColor instead: the glyph tracks whatever text
+     it sits in and stays readable at ~4.3:1 dark / 3.0:1 light. */
+  .sep {
+    color: color-mix(in oklab, currentColor 75%, transparent);
+  }
+
   /* The big section headings. */
   .section-title {
     @apply text-4xl font-extrabold tracking-tight sm:text-5xl;

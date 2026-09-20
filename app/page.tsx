@@ -6,7 +6,7 @@ import { Research } from "@/components/research";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Skills } from "@/components/skills";
-import { WorkGrid } from "@/components/work-grid";
+import { ProjectGrid } from "@/components/project-grid";
 import { getContent } from "@/lib/content";
 
 export default function Page() {
@@ -37,12 +37,7 @@ export default function Page() {
           <Experience index="01" jobs={experience} />
           <Education degrees={education} index="02" />
           <OpenSource content={open_source} index="03" />
-          <WorkGrid
-            id="projects"
-            index="04"
-            items={projects}
-            title="Projects"
-          />
+          <ProjectGrid index="04" items={projects} />
           <Research index="05" papers={research} />
           <Skills groups={skills} index="06" />
         </div>

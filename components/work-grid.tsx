@@ -71,9 +71,9 @@ function WorkCard({ work }: { work: Work }) {
           </ul>
         ) : null}
 
-        {(work.repo && work.url) || work.article ? (
+        {work.repo || work.article ? (
           <div className="flex flex-wrap items-center gap-2">
-            {work.repo && work.url ? (
+            {work.repo ? (
               <CardLink href={work.repo} icon={GitHubIcon}>
                 Source
               </CardLink>

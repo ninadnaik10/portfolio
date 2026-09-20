@@ -38,37 +38,37 @@ function TimelineItem({ item }: { item: Job }) {
           <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <Card.Title className="text-xl font-bold tracking-tight sm:text-2xl">
-              {item.role}
+              {item.url ? (
+                <Link
+                  className="text-foreground no-underline hover:underline"
+                  href={item.url}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {item.role}
+                </Link>
+              ) : (
+                item.role
+              )}
             </Card.Title>
             <span className="text-muted font-mono text-xs whitespace-nowrap">
               {item.start} — {item.end}
             </span>
           </div>
           <Card.Description className="text-muted mt-1.5 flex flex-wrap items-center gap-x-2 text-sm">
-            {item.url ? (
-              <Link
-                className="text-foreground font-semibold"
-                href={item.url}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {item.company}
-              </Link>
-            ) : (
-              <span className="text-foreground font-semibold">
-                {item.company}
-              </span>
-            )}
+            <span className="text-foreground font-semibold">
+              {item.company}
+            </span>
             {item.note ? <span className="italic">({item.note})</span> : null}
             {item.type ? (
               <>
-                <span className="text-separator">/</span>
+                <span className="sep">/</span>
                 <span>{item.type}</span>
               </>
             ) : null}
             {item.location ? (
               <>
-                <span className="text-separator">/</span>
+                <span className="sep">/</span>
                 <span>{item.location}</span>
               </>
             ) : null}

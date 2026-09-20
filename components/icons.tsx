@@ -1,5 +1,13 @@
 import { FaEnvelope, FaGlobe, FaLinkedin, FaNewspaper } from "react-icons/fa6";
-import { LuArrowUpRight, LuFileText, LuMonitor, LuMoon, LuSun } from "react-icons/lu";
+import {
+  LuArrowUpRight,
+  LuChevronLeft,
+  LuChevronRight,
+  LuFileText,
+  LuMonitor,
+  LuMoon,
+  LuSun,
+} from "react-icons/lu";
 import { SiGithub, SiInstagram, SiX } from "react-icons/si";
 
 import type { SocialIcon } from "@/lib/content";
@@ -31,3 +39,5 @@ export const FileTextIcon = LuFileText;
 export const SunIcon = LuSun;
 export const MoonIcon = LuMoon;
 export const MonitorIcon = LuMonitor;
+export const ChevronLeftIcon = LuChevronLeft;
+export const ChevronRightIcon = LuChevronRight;
