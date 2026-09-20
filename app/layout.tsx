@@ -22,6 +22,13 @@ const SITE_URL = "https://ninadnaik.me";
 const description =
   about[0] ?? `${profile.name} - ${profile.role}. ${profile.tagline}`;
 
+const ogImage = {
+  alt: `${profile.name} - ${profile.role}`,
+  height: 630,
+  url: "/opengraph-image.png",
+  width: 1200,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: `${profile.name} - ${profile.role}`,
@@ -38,11 +45,13 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: profile.name,
     type: "profile",
+    images: [ogImage],
   },
   twitter: {
     card: "summary_large_image",
     title: `${profile.name} - ${profile.role}`,
     description,
+    images: [ogImage],
   },
 };
 
