@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
+import Script from "next/script";
 
 import { Providers } from "@/app/providers";
 import { getContent } from "@/lib/content";
@@ -16,6 +17,8 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
+
+const GA_ID = "G-DXE20LWGMY";
 
 const { about, profile, socials } = getContent();
 const SITE_URL = "https://ninadnaik.me";
@@ -86,6 +89,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
         />
         <Providers>{children}</Providers>
+
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}
+        </Script>
       </body>
     </html>
   );
