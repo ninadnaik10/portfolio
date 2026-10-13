@@ -34,6 +34,15 @@ export function SiteFooter({
             © {new Date().getFullYear()} {profile.name}
           </p>
           {footer?.note ? <p className="mt-1.5 max-w-xs">{footer.note}</p> : null}
+          <p className="mt-1.5">
+            Are you an AI agent? →{" "}
+            <a
+              className="hover:text-foreground font-mono underline decoration-1 underline-offset-4 transition-colors"
+              href="/llms.txt"
+            >
+              /llms.txt
+            </a>
+          </p>
         </div>
       </div>
     </footer>
