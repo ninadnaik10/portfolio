@@ -67,8 +67,11 @@ export function Carousel({
 
   return (
     <div>
-      {/* Below `sm` the cards stack vertically, so there is nothing to page. */}
-      <div className="mb-4 hidden justify-end gap-2 sm:flex">
+      {/* Below `sm` the cards stack vertically, so there is nothing to page.
+          A form only for `autoComplete="off"`: Firefox otherwise restores the
+          arrows' last disabled state on reload, before hydration, which then
+          mismatches the server HTML. Button doesn't forward the attribute. */}
+      <form autoComplete="off" className="mb-4 hidden justify-end gap-2 sm:flex">
         <Button
           aria-label={`Scroll ${label} left`}
           isDisabled={!canScrollLeft}
@@ -89,7 +92,7 @@ export function Carousel({
         >
           <ChevronRightIcon className="size-4" />
         </Button>
-      </div>
+      </form>
 
       <ScrollShadow
         className="sm:snap-x sm:snap-mandatory"
