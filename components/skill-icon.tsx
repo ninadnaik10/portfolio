@@ -12,6 +12,7 @@
 
 /** Display name -> icon basename. A name absent here renders a monogram. */
 const ICONS: Record<string, string> = {
+  a2a: "a2a",
   aws: "aws",
   c: "c",
   "c++": "cpp",
@@ -27,6 +28,8 @@ const ICONS: Record<string, string> = {
   jwt: "jwt",
   kafka: "kafka",
   kubernetes: "kubernetes",
+  langchain: "langchain",
+  langgraph: "langgraph",
   linux: "linux",
   mcp: "mcp",
   mongodb: "mongodb",

@@ -282,7 +282,10 @@ skills:
     items: [TypeScript, JavaScript, Python, Go, C, C++, Java]
 
   - group: Backend & APIs
-    items: [NestJS, FastAPI, Node.js, GraphQL, gRPC, MCP, OAuth2.0, JWT]
+    items: [NestJS, FastAPI, Node.js, GraphQL, gRPC, OAuth2.0, JWT]
+
+  - group: AI & Agents
+    items: [MCP, A2A, LangChain, LangGraph]
 
   - group: Data & Messaging
     items: [PostgreSQL, MongoDB, Redis, MySQL, Kafka]

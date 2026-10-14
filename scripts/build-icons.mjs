@@ -42,6 +42,8 @@ const ICONS = {
   jwt: si.SiJsonwebtokens,
   kafka: si.SiApachekafka,
   kubernetes: si.SiKubernetes,
+  langchain: si.SiLangchain,
+  langgraph: si.SiLanggraph,
   linux: si.SiLinux,
   mcp: si.SiModelcontextprotocol,
   mongodb: si.SiMongodb,
