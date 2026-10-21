@@ -135,13 +135,30 @@ experience:
     location: Mumbai, India
     highlights:
       - >-
-        Improved efficiency of the automated recruitment process by developing
-        a GPT-powered WhatsApp chatbot in NestJS, WebSocket API, GraphQL and
-        React.js, streamlining communication with candidates.
+        Built a GPT-powered WhatsApp recruitment chatbot in NestJS, GraphQL and
+        WebSocket API that talked to candidates on the recruiter's behalf. It
+        asked preliminary screening questions about the job description and
+        collected the answers, sent the JD as a PDF whenever a candidate asked
+        for it, and collected resumes over WhatsApp into Amazon S3.
       - >-
-        Optimised the build process for apps running on AWS EC2 using AMI,
-        reducing costs by up to 75%.
-    stack: [NestJS, React.js, GraphQL, WebSocket, AWS EC2]
+        Handled voice replies as well as text: when a candidate answered with
+        an audio message, the bot fetched the audio file, transcribed it and
+        stored the transcribed response.
+      - >-
+        Built a WhatsApp-style chat interface in React.js inside Twenty CRM so
+        the recruiting team could follow each candidate's conversation, with
+        the candidate's status from the CRM shown alongside the chat.
+      - >-
+        Cut the CRM server's AWS EC2 cost by 75%. The NestJS (Twenty CRM) app
+        was served and built on the same t2.large, so every CI/CD build slowed
+        the live app and the instance sat oversized between builds. Moved
+        serving to a t2.small and wrote a bash deployment script that launches
+        a t2.large from an AMI only for each build, copies the compiled output
+        to the server over SCP, then terminates the build instance.
+      - >-
+        Consolidated the Python backend from four smaller EC2 instances into a
+        single t2.large, a further 10.8% saving.
+    stack: [NestJS, React.js, GraphQL, WebSocket, Amazon S3, Twenty CRM, AWS EC2, Bash]
     # article: https://gist.github.com/ninadnaik10/7e9faf7f9d68035a5fe5a89a3a599c0d
 
   - company: Kraymera Study Abroad
@@ -231,6 +248,7 @@ projects:
       Neural Network, trained on a custom set of 751 thirty-second clips for 96%
       relaxed test accuracy.
     stack: [Python, Flask, TensorFlow, React.js, MongoDB]
+    url: https://speaksure.ninadnaik.me/
     repo: https://github.com/ninadnaik10/speaksure
 
   - name: Shortomega
