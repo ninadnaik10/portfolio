@@ -245,9 +245,9 @@ projects:
     description: >-
       An AI interview platform that scores a candidate's spoken confidence for
       the hiring manager. Wav2Vec2 features feed an MLP and a Fuzzy Hypersphere
-      Neural Network, trained on a custom set of 751 thirty-second clips for 96%
+      Neural Network, trained on a custom set of 751 thirty-second clips for 95%
       relaxed test accuracy.
-    stack: [Python, Flask, TensorFlow, React.js, MongoDB]
+    stack: [Python, FastAPI, TensorFlow, React.js, MongoDB]
     url: https://speaksure.ninadnaik.me/
     repo: https://github.com/ninadnaik10/speaksure
 
